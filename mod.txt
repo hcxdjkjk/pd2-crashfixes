@@ -42,9 +42,14 @@
 		{
 			"hook_id": "lib/network/base/handlers/basenetworkhandler",
 			"script_path": "basenetworkhandler.lua"
+		},
+		{
+			"hook_id": "lib/managers/mission/elementlasertrigger", 
+			"script_path": "elementlasertrigger.lua"
 		}
 	]
 }
+
 
 
 

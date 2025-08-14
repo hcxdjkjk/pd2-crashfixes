@@ -1,4 +1,4 @@
---  [string "lib/units/enemies/cop/actions/upper_body/copa..."]:402: attempt to index field '_weapon_base' (a nil value)
+-- [string "lib/units/enemies/cop/actions/upper_body/copa..."]:402: attempt to index field '_weapon_base' (a nil value)
 local __update = CopActionShoot.update
 function CopActionShoot:update(...)
     if self._weapon_base then __update(self, ...) end

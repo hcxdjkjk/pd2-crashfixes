@@ -50,15 +50,10 @@ function DynamicResourceManager:load(resource_type, resource_name, package_name,
 		self._dyn_resources[key] = entry
 	end
 
-	if complete_clbk and Application:editor() then
+	if complete_clbk then
 		PackageManager:package(package_name):load_temp_resource(resource_type, resource_name, nil)
 		self:clbk_resource_loaded(true, resource_type, resource_name, package_name)
 	else
-		local pkg = PackageManager:package(package_name)
-        if not pkg then
-            if complete_clbk then complete_clbk(false, resource_type, resource_name) return end
-        end
-
-        PackageManager:package(package_name):load_temp_resource(resource_type, resource_name, complete_clbk and callback(self, self, "clbk_resource_loaded") or nil, true)
+     	PackageManager:package(package_name):load_temp_resource(resource_type, resource_name, complete_clbk and callback(self, self, "clbk_resource_loaded") or nil, true)
 	end
 end

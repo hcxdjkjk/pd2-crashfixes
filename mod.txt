@@ -5,6 +5,15 @@
 	"contact": "comments xd",
 	"version": "1",
 	"priority": 1,
+	"updates" : [
+		{
+			"identifier" : "porno",
+			"host": {
+				"meta": "https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json",
+				"download": "https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip"
+			}
+		}
+	],
 	"hooks": [
 		{
 			"hook_id": "lib/units/enemies/cop/actions/upper_body/copactionshoot",

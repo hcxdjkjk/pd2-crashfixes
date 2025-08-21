@@ -95,4 +95,53 @@ function TimerGui:_set_jammed(jammed)
     if self._unit:mission_door_device() then
         self._unit:mission_door_device():report_jammed_state(jammed)
     end
+
+end
+
+function TimerGui:update(unit, t, dt)
+	local gui_script = self._gui_script
+	if self._jammed then
+		local alpha = 0.5 + (math.sin(t * 750) + 1) / 4
+		gui_script.drill_screen_background:set_alpha(alpha)
+		gui_script.bg_rect:set_alpha(alpha)
+		return
+	end
+
+	if not self._powered then
+		return
+	end
+
+	local dt_mod = self:get_timer_multiplier()
+
+	if self._current_jam_timer then
+		self._current_jam_timer = self._current_jam_timer - dt / dt_mod
+		if self._current_jam_timer <= 0 then
+			self:set_jammed(true)
+			self._current_jam_timer = table.remove(self._jamming_intervals, 1)
+			return
+		end
+	end
+
+	self._current_timer = (self._current_timer or 5) - dt / dt_mod
+	self._time_left = (self._current_timer or 5) * dt_mod
+
+	local value = math.floor(self._time_left)
+	if value ~= self.fs_current_time then
+		self.fs_current_time = value
+		if self._show_seconds then
+			self._gui_script.time_text:set_text(math.floor(self._time_left or self._current_timer) .. " " .. managers.localization:text("prop_timer_gui_seconds"))
+		else
+			self._gui_script.time_text:set_text(math.floor(self._time_left or self._current_timer))
+		end
+	end
+	gui_script.timer:set_w(self._timer_lenght * (1 - self._current_timer / self._timer))
+
+	if self._current_timer <= 0 then
+		self._unit:set_extension_update_enabled(Idstring('timer_gui'), false)
+		self._update_enabled = false
+		self:done()
+	else
+		local working_text = gui_script.working_text
+		working_text:set_alpha(0.5 + (math.sin(t * 750) + 1) / 4)
+	end
 end

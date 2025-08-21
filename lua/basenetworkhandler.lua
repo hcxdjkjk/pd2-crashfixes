@@ -9,3 +9,15 @@ function BaseNetworkHandler._verify_sender(rpc)
     end
     return nil
 end
+
+-- Anticrash/lua/basenetworkhandler.lua:7: attempt to index local 'cd' (a number value)
+-- and probably something else idk
+function BaseNetworkHandler._verify_character(unit)
+    if unit and type(unit) == "userdata" and alive(unit) then
+        local cd = unit:character_damage()
+        if cd and type(cd) == "table" and not cd:dead() then
+            return true
+        end
+    end
+    return false
+end

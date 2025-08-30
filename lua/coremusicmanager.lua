@@ -1,3 +1,4 @@
+--[[
 function CoreMusicManager:check_music_switch()
   local switches = tweak_data.levels:get_music_switches()
   if switches and #switches > 0 then
@@ -10,3 +11,4 @@ local _post_event = CoreMusicManager.post_event
 function CoreMusicManager:post_event(name)
   _post_event(self, tostring(name))
 end
+]]

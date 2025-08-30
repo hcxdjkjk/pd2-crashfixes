@@ -124,6 +124,7 @@ function TimerGui:update(unit, t, dt)
 
 	self._current_timer = (self._current_timer or 5) - dt / dt_mod
 	self._time_left = (self._current_timer or 5) * dt_mod
+	self._timer = self._timer or 5
 
     if self._show_seconds then
         self._gui_script.time_text:set_text(math.floor(self._time_left or self._current_timer) .. " " .. managers.localization:text("prop_timer_gui_seconds"))

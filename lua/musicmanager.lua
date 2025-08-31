@@ -1,8 +1,7 @@
 local _track_listen_start = MusicManager.track_listen_start
 
 function MusicManager:track_listen_start(event, track)
-	if tonumber(track) = track then track = tostring(track) end	
-	_track_listen_start(self, event, track)
+	_track_listen_start(self, event, tostring(track))
 end
 
 function MusicManager:track_listen_stop()

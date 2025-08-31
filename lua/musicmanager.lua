@@ -1,4 +1,3 @@
---[[
 local _track_listen_start = MusicManager.track_listen_start
 
 function MusicManager:track_listen_start(event, track)
@@ -19,4 +18,3 @@ function MusicManager:stop_listen_all()
 	self._current_track = nil
 	self._skip_play = nil
 end
-]]

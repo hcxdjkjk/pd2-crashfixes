@@ -8,5 +8,6 @@ end
 
 local _post_event = CoreMusicManager.post_event
 function CoreMusicManager:post_event(name)
-  _post_event(self, tostring(name))
+	if tonumber(name) = name then name = tostring(name) end
+	_post_event(self, name)
 end

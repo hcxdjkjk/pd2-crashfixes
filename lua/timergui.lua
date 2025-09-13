@@ -96,7 +96,7 @@ function TimerGui:_set_jammed(jammed)
         self._unit:mission_door_device():report_jammed_state(jammed)
     end
 
-    if VHUDPlus and managers.gameinfo then -- fix for vanillahud+ timers 1
+    if managers.gameinfo then -- fix for vanillahud+ timers 1
         managers.gameinfo:event("timer", "set_jammed", self._info_key, jammed and true or false)
     end
 end
@@ -146,7 +146,8 @@ function TimerGui:update(unit, t, dt)
 		working_text:set_alpha(0.5 + (math.sin(t * 750) + 1) / 4)
 	end
 
-    if VHUDPlus and managers.gameinfo then -- fix for vanillahud+ timers 1
+    if managers.gameinfo then -- fix for vanillahud+ timers 1
         managers.gameinfo:event("timer", "update", self._info_key, t, self._time_left, self._current_timer / self._timer)
     end
 end
+

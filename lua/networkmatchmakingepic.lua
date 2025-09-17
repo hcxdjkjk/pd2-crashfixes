@@ -6,7 +6,7 @@ function NetworkMatchMakingEPIC:is_server_ok(friends_only, room, attributes_list
 	    	attributes_list.numbers[i] = 0
 	    end
 	end
-	if attributes_list.numbers[5] => 4 then
+	if attributes_list.numbers[5] >= 4 then
 	   	return false
 	end
 	return _is_server_ok(self, friends_only, room, attributes_list, is_invite)

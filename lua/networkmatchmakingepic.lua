@@ -3,7 +3,7 @@ function NetworkMatchMakingEPIC:is_server_ok(friends_only, room, attributes_list
 	for i = 1, 8 do
 		if type(attributes_list.numbers[i]) ~= "number" then return false end
 	    if attributes_list.numbers[i] == nil then
-	    	attributes_list.numbers[i] = 0
+	    	attributes_list.numbers[i] = -1
 	    end
 	end
 	if attributes_list.numbers[5] >= 4 then

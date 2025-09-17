@@ -3,11 +3,5 @@ function CrimeNetGui:add_server_job(data)
 	if not (tonumber(data.difficulty_id)) then
 		data.difficulty_id = 0
 	end
-	if tonumber(data.num_players) == 4 then
-		return
-	end
-	if #data.owner_id ~= 32 then
-		return
-	end
 	_add_server_job(self, data)
 end

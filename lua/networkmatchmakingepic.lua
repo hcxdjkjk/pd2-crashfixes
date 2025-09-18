@@ -1,6 +1,6 @@
 local _is_server_ok = NetworkMatchMakingEPIC.is_server_ok
 function NetworkMatchMakingEPIC:is_server_ok(friends_only, room, attributes_list, is_invite)
-	for z, v in ipairs(attributes_list.numbers) do
+	for z, v in pairs(attributes_list.numbers) do
 		if type(v) ~= "number" then
 			return false
 		end

@@ -3,7 +3,7 @@
 	"description": "1",
 	"author": "hcxdjkjk, sirdenis",
 	"contact": "comments xd",
-	"version": "1.24.5",
+	"version": "1.25",
 	"priority": 1,
 	"supermod_definition": "cf.xml",
 	"updates" : [
@@ -16,13 +16,3 @@
 		}
 	]
 }
-
-
-
-
-
-
-
-
-
-

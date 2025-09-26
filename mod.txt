@@ -11,8 +11,10 @@
 			"identifier" : "porno",
 			"host": {
 				"meta": "https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json",
-				"download": "https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip"
+				"download": "https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip",
+				"patchnotes": "https://modworkshop.net/mod/53443?tab=changelog"
 			}
 		}
 	]
 }
+

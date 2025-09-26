@@ -4,10 +4,14 @@ function server_verify(data)
 	if not data.room_id then return nil end
 	if not data.difficulty_id then return nil end
 	if not data.host_name or type(data.host_name) ~= "string" then data.host_name = " " end
+	if not data.num_plrs then return nil end
 
 	local lobby = EpicMM:lobby(data.room_id)
 	if type(lobby) ~= "userdata" then return nil end
 	if type(lobby.key_value) ~= "function" then return nil end
+
+	local owner_account_type = lobby:key_value("owner_account_type")
+	if (owner_account_type == "STEAM" or owner_account_type == "EPIC") then else return nil end
 
 	if not tonumber(data.difficulty_id) then
 		data.difficulty_id = 2
@@ -20,14 +24,16 @@ function server_verify(data)
 	data.host_name = string.gsub(data.host_name, "\n", "")
 	if #data.host_name > 32 then
 		data.host_name = string.sub(data.host_name, 1, 32)
-	end	
+	end
 
   	local owner_account_id = tostring(lobby:key_value("owner_account_id"))
-  	if owner_account_id and string.len(owner_account_id) >= 17 then	else return nil end
+  	if #owner_account_id == 32 then
+  		if tostring(owner_account_id):match("^[0-9a-f]+$") then else return nil end
+  	elseif #owner_account_id == 17 then
+  		if not tonumber(owner_account_id) then return nil end
+  	else return nil end
 
-  	if data.num_plrs and tonumber(data.num_plrs) >= 4 then
-  		return nil
-  	end
+  	if tonumber(data.num_plrs) >= 4 then return nil	end
 	
 	return data
 end

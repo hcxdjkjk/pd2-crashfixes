@@ -12,3 +12,14 @@ function UnitNetworkHandler:sync_melee_start(unit, hand, sender)
 		unit:movement():sync_melee_start(hand)
 	end
 end
+
+function UnitNetworkHandler:set_look_dir(unit, yaw_in, pitch_in, sender)
+	if not self._verify_character_and_sender(unit, sender) then return end
+	if (unit and unit:movement() and unit:movement().sync_look_dir) and ((yaw_in and type(yaw_in) == "number") and (pitch_in and type(pitch_in) == "number")) then
+		local dir = Vector3()
+		local yaw = 360 * yaw_in / 255
+		local pitch = math.lerp(-85, 85, pitch_in / 127)
+		mrotation.y(Rotation(yaw, pitch, 0), dir)
+		unit:movement():sync_look_dir(dir, yaw, pitch)
+	end
+end

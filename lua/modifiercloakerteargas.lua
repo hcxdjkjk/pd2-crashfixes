@@ -1,7 +1,7 @@
 --[string "lib/modifiers/modifiercloakerteargas.lua"]:20: attempt to call method 'm_field_position' (a nil value)
 function ModifierCloakerTearGas:OnEnemyDied(unit, damage_info)
-  if not unit then return end
-  local base_ext = unit:base()
+	if not unit then return end
+	local base_ext = unit:base()
 
 	if base_ext and base_ext.has_tag and base_ext:has_tag("spooc") then
 		local pos = unit:position()

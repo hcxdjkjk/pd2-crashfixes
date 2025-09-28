@@ -6,20 +6,20 @@ function ModifierCloakerTearGas:OnEnemyDied(unit, damage_info)
 	if base_ext and base_ext.has_tag and base_ext:has_tag("spooc") then
 		local pos = unit:position()
 		local ray = unit:raycast("ray", pos, pos + math.UP * -500, "slot_mask", managers.slot:get_mask("world_geometry"))
-    local tracker
+    	local tracker
 		if ray then
 			mvector3.set(pos, ray.hit_position)
 		elseif unit:movement() and unit:movement():nav_tracker() then
 			tracker = unit:movement():nav_tracker()
-    else
-      tracker = nil
+    	else
+      		tracker = nil
 
 			if tracker then
 				if tracker:lost() and tracker.field_m_position then
 					tracker:field_m_position(pos)
 				elseif tracker.m_position then
 					tracker:m_position(pos)
-        else
+        		else
           
 				end
 			end

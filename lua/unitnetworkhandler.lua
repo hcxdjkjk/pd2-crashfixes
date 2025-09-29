@@ -31,6 +31,8 @@ end
 
 function UnitNetworkHandler:set_armor(unit, percent, max_mul, sender)
     if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
+	if not tonumber(percent) then percent = 100 end
+	if not tonumber(max_mul) then max_mul = 1 end
     local character_data = managers.criminals:character_data_by_peer_id(self._verify_sender(sender):id())
     if character_data and character_data.panel_id then
         managers.hud:set_teammate_armor(character_data.panel_id, {
@@ -45,6 +47,8 @@ end
     
 function UnitNetworkHandler:set_health(unit, percent, max_mul, sender)
     if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
+	if not tonumber(percent) then percent = 100 end
+	if not tonumber(max_mul) then max_mul = 1 end
     local character_data = managers.criminals:character_data_by_peer_id(self._verify_sender(sender):id())
     if character_data and character_data.panel_id then
         managers.hud:set_teammate_health(character_data.panel_id, {

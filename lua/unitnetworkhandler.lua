@@ -63,3 +63,12 @@ function UnitNetworkHandler:set_health(unit, percent, max_mul, sender)
         managers.mission:call_global_event("player_damaged")
     end
 end
+
+--[string "lib/network/handlers/unitnetworkhandler.lua"]:82: attempt to call method 'sync_auto_recovery' (a nil value)
+--or like that i don't remember xd
+function UnitNetworkHandler:first_aid_kit_sync(unit, min_distance)
+   	if not self._verify_gamestate(self._gamestate_filter.any_ingame) or not self._verify_character(unit) then return end
+   	if (unit and unit:base() and unit:base().sync_auto_recovery) and (min_distance and type(min_distance) == "number" and (min_distance > 0 and min_distance < 6)) then
+       	unit:base():sync_auto_recovery(min_distance)
+	end
+end

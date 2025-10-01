@@ -1,4 +1,3 @@
---[[
 function HuskPlayerInventory:add_unit_by_factory_name(factory_name, equip, instant, blueprint_string, cosmetics_string)
 	if not factory_name or not tweak_data.weapon or not tweak_data.weapon.factory then
 		return
@@ -70,23 +69,3 @@ function HuskPlayerInventory:add_unit_by_factory_blueprint(factory_name, equip, 
 
 	self:add_unit(new_unit, equip, instant)
 end
-
-function HuskPlayerInventory:synch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
-	if not peer then return end
-	self:_perform_switch_equipped_weapon(weap_index, blueprint_string, "nil-1-0", peer)
-	if self._unit:movement().sync_equip_weapon then
-		self._unit:movement():sync_equip_weapon()
-	end
-end
-
-function HuskPlayerInventory:_perform_switch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
-	if not peer then return end
-	local weapon_name = self._get_weapon_name_from_sync_index(weap_index)
-	if type(weapon_name) == "string" then
-		self:add_unit_by_factory_name(weapon_name, true, true, blueprint_string, "nil-1-0")
-	else
-		self:add_unit_by_name(tostring(weapon_name), true, true)
-	end
-end
-]]
-

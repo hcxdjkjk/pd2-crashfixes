@@ -1,3 +1,4 @@
+--[[
 function HuskPlayerInventory:add_unit_by_factory_name(factory_name, equip, instant, blueprint_string, cosmetics_string)
 	if not factory_name or not tweak_data.weapon or not tweak_data.weapon.factory then
 		return
@@ -87,4 +88,5 @@ function HuskPlayerInventory:_perform_switch_equipped_weapon(weap_index, bluepri
 		self:add_unit_by_name(tostring(weapon_name), true, true)
 	end
 end
+]]
 

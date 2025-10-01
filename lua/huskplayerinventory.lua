@@ -1,4 +1,5 @@
 function HuskPlayerInventory:add_unit_by_factory_name(factory_name, equip, instant, blueprint_string, cosmetics_string)
+	cosmetics_string = "nil-1-0"
 	if not factory_name or not tweak_data.weapon or not tweak_data.weapon.factory then
 		return
 	end
@@ -21,12 +22,7 @@ function HuskPlayerInventory:add_unit_by_factory_name(factory_name, equip, insta
 		blueprint = managers.weapon_factory:get_default_blueprint_by_factory_id(actual_factory_id) or {}
 	end
 
-	local cosmetics = nil
-	if cosmetics_string and cosmetics_string ~= "" and managers.blackmarket and managers.blackmarket.cosmetics_from_outfit_string then
-		cosmetics = managers.blackmarket:cosmetics_from_outfit_string(cosmetics_string)
-	end
-
-	self:add_unit_by_factory_blueprint(actual_factory_id, equip, instant, blueprint, cosmetics)
+	self:add_unit_by_factory_blueprint(actual_factory_id, equip, instant, blueprint, nil)
 end
 
 function HuskPlayerInventory:add_unit_by_factory_blueprint(factory_name, equip, instant, blueprint, cosmetics)
@@ -47,9 +43,6 @@ function HuskPlayerInventory:add_unit_by_factory_blueprint(factory_name, equip, 
 	else return end
 
 	new_unit:base():set_factory_data(factory_name)
-	if cosmetics and new_unit:base().set_cosmetics_data then
-		new_unit:base():set_cosmetics_data(cosmetics)
-	end
 	new_unit:base():assemble_from_blueprint(factory_name, blueprint or {})
 	new_unit:base():check_npc()
 
@@ -76,4 +69,22 @@ function HuskPlayerInventory:add_unit_by_factory_blueprint(factory_name, equip, 
 	end
 
 	self:add_unit(new_unit, equip, instant)
+end
+
+function HuskPlayerInventory:synch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
+	if not peer then return end
+	self:_perform_switch_equipped_weapon(weap_index, blueprint_string, "nil-1-0", peer)
+	if self._unit:movement().sync_equip_weapon then
+		self._unit:movement():sync_equip_weapon()
+	end
+end
+
+function HuskPlayerInventory:_perform_switch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
+	if not peer then return end
+	local weapon_name = self._get_weapon_name_from_sync_index(weap_index)
+	if type(weapon_name) == "string" then
+		self:add_unit_by_factory_name(weapon_name, true, true, blueprint_string, "nil-1-0")
+	else
+		self:add_unit_by_name(tostring(weapon_name), true, true)
+	end
 end

@@ -1,3 +1,4 @@
+--[[
 core:module("CorePortalManager")
 core:import("CoreShapeManager")
 
@@ -30,3 +31,5 @@ function PortalUnitGroup:_change_visibility(unit, diff)
 		managers.portal:add_to_hide_list(unit)
 	end
 end
+
+]]

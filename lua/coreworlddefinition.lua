@@ -44,32 +44,14 @@ if WorldDefinition then
     end
 
     -- [string "core/lib/utils/dev/editor/coreworlddefinition..."]:1301: attempt to index a number value
-    function WorldDefinition:_setup_projection_light(unit, data)
-        if not data.projection_light then return end
-        if not data.projection_textures then return end
-
-		if unit and unit:unit_data() then
-       		unit:unit_data().projection_textures = data.projection_textures
-        	unit:unit_data().projection_light = data.projection_light
-        end
-
-        local light = unit:get_object(Idstring(data.projection_light))
-        local texture_name = nil
-
-        if unit:unit_data().projection_textures then
-            texture_name = unit:unit_data().projection_textures[data.projection_light]
-            if not DB:has(Idstring("texture"), Idstring(texture_name)) then
-                return
-            end
-        else
-            texture_name = (self._cube_lights_path or self:world_dir()) .. "cube_lights/" .. unit:unit_data().unit_id
-            if not DB:has(Idstring("texture"), Idstring(texture_name)) then
-                return
-            end
-        end
-
-        local omni = string.find(light:properties(), "omni") and true or false
-        light:set_projection_texture(Idstring(texture_name), omni, true)
+    local __setup_projection_light = WorldDefinition._setup_projection_light
+   	function WorldDefinition:_setup_projection_light(unit, data)
+		if type(data) ~= "table" then return end
+    	if type(data.projection_textures) ~= "table" then
+    		data.projection_textures = nil
+    	end
+    	__setup_projection_light(self, unit, data)
     end
 
 end
+

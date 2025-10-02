@@ -48,8 +48,10 @@ if WorldDefinition then
         if not data.projection_light then return end
         if not data.projection_textures then return end
 
-        if unit.unit_data and unit:unit_data().projection_textures then unit:unit_data().projection_textures = data.projection_textures end
-        if unit.unit_data and unit:unit_data().projection_light then unit:unit_data().projection_light = data.projection_light end
+		if unit and unit:unit_data() then
+       		unit:unit_data().projection_textures = data.projection_textures
+        	unit:unit_data().projection_light = data.projection_light
+        end
 
         local light = unit:get_object(Idstring(data.projection_light))
         local texture_name = nil
@@ -67,7 +69,7 @@ if WorldDefinition then
         end
 
         local omni = string.find(light:properties(), "omni") and true or false
-
         light:set_projection_texture(Idstring(texture_name), omni, true)
     end
+
 end

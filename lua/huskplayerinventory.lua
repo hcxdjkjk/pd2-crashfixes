@@ -69,20 +69,3 @@ function HuskPlayerInventory:add_unit_by_factory_blueprint(factory_name, equip, 
 
 	self:add_unit(new_unit, equip, instant)
 end
-
-function HuskPlayerInventory:synch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
-	self:_perform_switch_equipped_weapon(weap_index, blueprint_string, nil, peer)
-	if self._unit:movement().sync_equip_weapon then
-		self._unit:movement():sync_equip_weapon()
-	end
-end
-
-function HuskPlayerInventory:_perform_switch_equipped_weapon(weap_index, blueprint_string, cosmetics_string, peer)
-	local weapon_name = self._get_weapon_name_from_sync_index(weap_index)
-	if type(weapon_name) == "string" then
-		self:add_unit_by_factory_name(weapon_name, true, true, blueprint_string, nil)
-	else
-		self:add_unit_by_name(weapon_name, true, true)
-	end
-end
-

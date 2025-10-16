@@ -29,41 +29,6 @@ function UnitNetworkHandler:set_equipped_weapon(unit, item_index, blueprint_stri
 	unit:inventory():synch_equipped_weapon(item_index, blueprint_string, "nil-1-0", self._verify_sender(sender))
 end
 
-function UnitNetworkHandler:set_armor(unit, percent, max_mul, sender)
-    if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
-	if not tonumber(percent) then percent = 100 end
-	if not tonumber(max_mul) then max_mul = 1 end
-    local character_data = managers.criminals:character_data_by_peer_id(self._verify_sender(sender):id())
-    if character_data and character_data.panel_id then
-        managers.hud:set_teammate_armor(character_data.panel_id, {
-            current = percent * max_mul,
-            total = 100 * max_mul,
-            max = 100 * max_mul
-        })
-    else
-        managers.hud:set_mugshot_armor(unit:unit_data().mugshot_id, percent / 100)
-    end
-end
-    
-function UnitNetworkHandler:set_health(unit, percent, max_mul, sender)
-    if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
-	if not tonumber(percent) then percent = 100 end
-	if not tonumber(max_mul) then max_mul = 1 end
-    local character_data = managers.criminals:character_data_by_peer_id(self._verify_sender(sender):id())
-    if character_data and character_data.panel_id then
-        managers.hud:set_teammate_health(character_data.panel_id, {
-            current = percent * max_mul,
-            total = 100 * max_mul,
-            max = 100 * max_mul
-        })
-    else
-        managers.hud:set_mugshot_health(unit:unit_data().mugshot_id, percent / 100)
-    end
-    if percent ~= 100 then
-        managers.mission:call_global_event("player_damaged")
-    end
-end
-
 --[string "lib/network/handlers/unitnetworkhandler.lua"]:82: attempt to call method 'sync_auto_recovery' (a nil value)
 --or like that i don't remember xd
 function UnitNetworkHandler:first_aid_kit_sync(unit, min_distance)

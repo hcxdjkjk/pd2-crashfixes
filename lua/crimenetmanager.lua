@@ -1,5 +1,5 @@
 function server_verify(data)
-	if not data or type(data) ~= "table" then return nil end
+	if type(data) ~= "table" then return nil end
 	if not data.id then return nil end
 	if not data.room_id then return nil end
 	if not data.difficulty_id then return nil end

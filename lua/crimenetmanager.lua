@@ -5,13 +5,25 @@ function server_verify(data)
 	if not data.difficulty_id then return nil end
 	if not data.host_name or type(data.host_name) ~= "string" then data.host_name = " " end
 	if not data.num_plrs then return nil end
+	
+	local is_steamMM = SystemInfo:matchmaking() == Idstring("MM_STEAM")
+	if not is_steamMM then
+	
+		local lobby = EpicMM:lobby(data.room_id)
+		if type(lobby) ~= "userdata" then return nil end
+		if type(lobby.key_value) ~= "function" then return nil end
 
-	local lobby = EpicMM:lobby(data.room_id)
-	if type(lobby) ~= "userdata" then return nil end
-	if type(lobby.key_value) ~= "function" then return nil end
+		local owner_account_type = lobby:key_value("owner_account_type")
+		if (owner_account_type == "STEAM" or owner_account_type == "EPIC") then else return nil end
 
-	local owner_account_type = lobby:key_value("owner_account_type")
-	if (owner_account_type == "STEAM" or owner_account_type == "EPIC") then else return nil end
+		local owner_account_id = tostring(lobby:key_value("owner_account_id"))
+		if #owner_account_id == 32 then
+			if tostring(owner_account_id):match("^[0-9a-f]+$") then else return nil end
+		elseif #owner_account_id == 17 then
+			if not tonumber(owner_account_id) then return nil end
+		else return nil end
+
+	end
 
 	if not tonumber(data.difficulty_id) then
 		data.difficulty_id = 2
@@ -25,13 +37,6 @@ function server_verify(data)
 	if #data.host_name > 32 then
 		data.host_name = string.sub(data.host_name, 1, 32)
 	end
-
-  	local owner_account_id = tostring(lobby:key_value("owner_account_id"))
-  	if #owner_account_id == 32 then
-  		if tostring(owner_account_id):match("^[0-9a-f]+$") then else return nil end
-  	elseif #owner_account_id == 17 then
-  		if not tonumber(owner_account_id) then return nil end
-  	else return nil end
 
   	if tonumber(data.num_plrs) >= 4 then return nil	end
 	

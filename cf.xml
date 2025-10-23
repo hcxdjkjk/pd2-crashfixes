@@ -15,9 +15,9 @@
     <post script_path="lua/elementlasertrigger.lua" hook_id="lib/managers/mission/elementlasertrigger"/>
     <post script_path="lua/networkmatchmakingepic.lua" hook_id="lib/network/matchmaking/networkmatchmakingepic"/>
     <post script_path="lua/crimenetmanager.lua" hook_id="lib/managers/crimenetmanager"/>
-    <post script_path="lua/socialhubpanels.lua" hook_id="lib/managers/social_hub/socialhubpanels"/>
     <post script_path="lua/unitnetworkhandler.lua" hook_id="lib/network/handlers/unitnetworkhandler"/>
     <post script_path="lua/networkmanager.lua" hook_id="lib/network/base/networkmanager"/>
     <post script_path="lua/weaponfactorymanager.lua" hook_id="lib/managers/weaponfactorymanager"/>
   </hooks>
 </mod>
+

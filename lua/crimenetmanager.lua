@@ -2,7 +2,6 @@ function server_verify(data)
 	if type(data) ~= "table" then return nil end
 	if not data.id then return nil end
 	if not data.room_id then return nil end
-	if not data.difficulty_id then return nil end
 	if not data.host_name or type(data.host_name) ~= "string" then data.host_name = " " end
 	if not data.num_plrs then return nil end
 	
@@ -25,18 +24,9 @@ function server_verify(data)
 
 	end
 
-	if not tonumber(data.difficulty_id) then
-		data.difficulty_id = 2
-	end
-
 	if data.mutators and type(data.mutators) == "table" and table.empty(data.mutators) then
     	data.mutators = false
   	end
-
-	data.host_name = string.gsub(data.host_name, "\n", "")
-	if #data.host_name > 32 then
-		data.host_name = string.sub(data.host_name, 1, 32)
-	end
 
   	if tonumber(data.num_plrs) >= 4 then return nil	end
 	

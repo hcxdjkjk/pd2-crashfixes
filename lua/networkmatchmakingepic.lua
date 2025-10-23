@@ -13,9 +13,5 @@ function NetworkMatchMakingEPIC:is_server_ok(friends_only, room, attributes_list
 	   	return false
 	end
 	
-	if not tonumber(attributes_list.numbers[2]) then
-	   	attributes_list.numbers[2] = 2
-	end
-	
 	return _is_server_ok(self, friends_only, room, attributes_list, is_invite)
 end

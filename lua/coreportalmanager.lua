@@ -12,16 +12,10 @@ function PortalUnitGroup:_change_units_visibility(diff)
 		end
 	end
 end
+local __change_visibility = PortalUnitGroup._change_visibility
 function PortalUnitGroup:_change_visibility(unit, diff)
 	if type(unit) ~= "userdata" or not alive(unit) then return end
-	if not unit:unit_data()._visibility_counter then
-		managers.portal:pseudo_reset()
-	end
-	unit:unit_data()._visibility_counter = unit:unit_data()._visibility_counter + diff
-	if unit:unit_data()._visibility_counter > 0 then
-		unit:set_visible(true)
-		managers.portal:remove_from_hide_list(unit)
-	else
-		managers.portal:add_to_hide_list(unit)
-	end
+	if type(unit:unit_data()) ~= "table" then return end
+	if type(unit:unit_data()._visibility_counter) ~= "number" then unit:unit_data()._visibility_counter = 0 end
+	__change_visibility(self, unit, diff)
 end

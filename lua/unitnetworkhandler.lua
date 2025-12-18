@@ -24,11 +24,6 @@ function UnitNetworkHandler:set_look_dir(unit, yaw_in, pitch_in, sender)
 	end
 end
 
-function UnitNetworkHandler:set_equipped_weapon(unit, item_index, blueprint_string, cosmetics_string, sender)
-	if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
-	unit:inventory():synch_equipped_weapon(item_index, blueprint_string, "nil-1-0", self._verify_sender(sender))
-end
-
 --[string "lib/network/handlers/unitnetworkhandler.lua"]:82: attempt to call method 'sync_auto_recovery' (a nil value)
 --or like that i don't remember xd
 function UnitNetworkHandler:first_aid_kit_sync(unit, min_distance)

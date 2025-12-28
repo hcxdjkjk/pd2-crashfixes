@@ -1,7 +1,10 @@
 local _track_listen_start = MusicManager.track_listen_start
 
 function MusicManager:track_listen_start(event, track)
-	_track_listen_start(self, event, tostring(track))
+    if track ~= nil then
+        track = tostring(track) 
+    end
+	_track_listen_start(self, event, track)
 end
 
 function MusicManager:track_listen_stop()

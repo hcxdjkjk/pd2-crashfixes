@@ -5,9 +5,12 @@ function CopActionShoot:update(...)
 end
 -- [string "lib/units/enemies/cop/actions/upper_body/copa..."]:658: attempt to perform arithmetic on local 't' (a userdata value)
 local __get_unit_shoot_pos = CopActionShoot._get_unit_shoot_pos
-function CopActionShoot:_get_unit_shoot_pos(t, ...)
-    if type(t) ~= "number" then
-        t = 1
+function CopActionShoot:_get_unit_shoot_pos(t, pos, ...)
+    if type(t) == "userdata" and type(pos) == "number" then
+        local save_t = t
+        local save_pos = pos
+        t = save_pos
+        pos = save_t
     end
-    return __get_unit_shoot_pos(self, t, ...)
+    return __get_unit_shoot_pos(self, t, pos, ...)
 end

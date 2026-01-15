@@ -1,3 +1,4 @@
+-- [string "lib/managers/experiencemanager.lua"]:811: attempt to perform arithmetic on local 'mission_xp_dissect' (a table value)
 local _get_xp_by_params = ExperienceManager.get_xp_by_params
 local _get_contract_xp_by_stars = ExperienceManager.get_contract_xp_by_stars
 

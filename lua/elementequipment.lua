@@ -2,7 +2,7 @@
 local _on_executed = ElementEquipment.on_executed
 
 function ElementEquipment:on_executed(instigator)
-    if instigator and self._values.equipment and self._values.amount then
+    if instigator then
         _on_executed(self, instigator)
     end
 end

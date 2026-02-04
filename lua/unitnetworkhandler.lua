@@ -6,10 +6,10 @@ function UnitNetworkHandler:action_change_pose(unit, pose_code, pos)
 	end
 end
 
+local _sync_melee_start = UnitNetworkHandler.sync_melee_start
 function UnitNetworkHandler:sync_melee_start(unit, hand, sender)
-	if not self._verify_character_and_sender(unit, sender) or not self._verify_gamestate(self._gamestate_filter.any_ingame) then return end
-	if (unit and unit:movement() and unit:movement().sync_melee_start) and (hand and type(hand) == "number") then
-		unit:movement():sync_melee_start(hand)
+	if hand and type(hand) == "number" then
+		_sync_melee_start(self, unit, hand, sender)
 	end
 end
 

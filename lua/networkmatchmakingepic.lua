@@ -6,6 +6,14 @@ function NetworkMatchMakingEPIC:is_server_ok(friends_only, room, attributes_list
 		end
 	end
 
+	if attributes_list.numbers[2] == 0 then
+		attributes_list.numbers[2] = 2
+	end
+
+	if attributes_list.numbers[5] == 0 or attributes_list.numbers[5] == 4 then
+		return false
+	end
+
 	if type(attributes_list.mods) ~= "string" or attributes_list.mods == "empty" then
 		attributes_list.mods = "7d66a433be3a1fe2"
 	end

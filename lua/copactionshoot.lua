@@ -7,13 +7,6 @@ function CopActionShoot:update(...)
 end
 
 function CopActionShoot:_get_unit_shoot_pos(t, pos, dis, w_tweak, ...)
-    --[string "lib/units/enemies/cop/actions/upper_body/copa..."]:658: attempt to perform arithmetic on local 't' (a userdata value)
-    if type(t) == "userdata" and type(pos) == "number" then
-        local save_t = t
-        local save_pos = pos
-        t = save_pos
-        pos = save_t
-    end
     --[string "lib/units/enemies/cop/actions/upper_body/copa..."]:674: attempt to index local 'w_tweak' (a number value)
     if type(w_tweak) == "table" then
         return __get_unit_shoot_pos(self, t, pos, dis, w_tweak, ...)

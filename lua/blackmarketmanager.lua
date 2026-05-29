@@ -1,3 +1,17 @@
+--[string "lib/managers/blackmarketmanager.lua"]:1388: attempt to index local 'equipped' (a nil value)
+local __outfit_string_mask = BlackMarketManager._outfit_string_mask
+function BlackMarketManager:_outfit_string_mask()
+	local bm = managers.blackmarket or nil
+	if bm and type(bm.equipped_mask) == "function" and
+		(
+			type(bm:equipped_mask()) == "string" or type(bm:equipped_mask()) == "table"
+		)
+		then
+		return __outfit_string_mask(self)
+	end
+	return "character_locked nothing no_color_no_material plastic"
+end
+
 function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
 	if not skin_id then
 		return

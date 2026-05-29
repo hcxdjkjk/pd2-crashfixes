@@ -12,7 +12,7 @@ function SentryGunWeapon:fire(blanks, expend_ammo, shoot_player, target_unit)
 	local direction = fire_obj:rotation():y()
 
 	mvector3.spread(direction, tweak_data.weapon[self._name_id].SPREAD * self._spread_mul)
-	
+
 	if self._muzzle_effect_table then
 		World:effect_manager():spawn(self._muzzle_effect_table[self._interleaving_fire])
 	end

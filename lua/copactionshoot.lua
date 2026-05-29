@@ -3,8 +3,8 @@ local __get_unit_shoot_pos = CopActionShoot._get_unit_shoot_pos
 
 --[string "lib/units/enemies/cop/actions/upper_body/copa..."]:402: attempt to index field '_weapon_base' (a nil value)
 function CopActionShoot:update(...)
-    if self._weapon_base then 
-        __update(self, ...) 
+    if self._weapon_base then
+        __update(self, ...)
     end
 end
 

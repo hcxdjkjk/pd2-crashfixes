@@ -12,6 +12,32 @@ function BlackMarketManager:_outfit_string_mask()
 	return "character_locked nothing no_color_no_material plastic"
 end
 
+--[string "lib/managers/blackmarketmanager.lua"]:1572: attempt to index local 'weapon' (a nil value)
+local _get_silencer_concealment_modifiers = BlackMarketManager.get_silencer_concealment_modifiers
+function BlackMarketManager:get_silencer_concealment_modifiers(weapon)
+	if 
+		type(weapon) == "table" and
+		type(weapon.factory_id) == "string" and
+		type(weapon.blueprint) == "table"
+	then
+		return _get_silencer_concealment_modifiers(self, weapon)
+	end
+	return 0
+end
+
+--[string "lib/managers/blackmarketmanager.lua"]:3026: attempt to index local 'weapon' (a nil value)
+local __calculate_weapon_concealment = BlackMarketManager._calculate_weapon_concealment
+function BlackMarketManager:_calculate_weapon_concealment(weapon)
+	if 
+		type(weapon) == "table" and
+		type(weapon.factory_id) == "string" and
+		type(weapon.blueprint) == "table"
+	then
+		return __calculate_weapon_concealment(self, weapon)
+	end
+	return 0
+end
+
 function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
 	if not skin_id then
 		return

@@ -35,7 +35,7 @@ function GroupAIStateBesiege:_perform_group_spawning(spawn_task, force, use_last
                     if spawn_task.objective then
                         objective = self.clone_objective(spawn_task.objective)
                     else
-                        objective = spawn_task.group.objective.element:get_random_SO(spawned_unit)
+                        objective = spawn_task.group.objective and spawn_task.group.objective.element and spawn_task.group.objective.element:get_random_SO(spawned_unit) or nil
 
                         if not objective then
                             spawned_unit:set_slot(0)

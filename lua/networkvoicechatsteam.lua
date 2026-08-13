@@ -1,4 +1,4 @@
--- [string "lib/network/matchmaking/networkvoicechatsteam..."]:113: attempt to perform arithmetic on field 'time' (a nil value)
+--[string "lib/network/matchmaking/networkvoicechatsteam..."]:113: attempt to perform arithmetic on field 'time' (a nil value)
 local orig_func_NetworkVoiceChatSTEAM_update = NetworkVoiceChatSTEAM.update
 function NetworkVoiceChatSTEAM:update()
 	local playing = self.handler:get_voice_receivers_playing()

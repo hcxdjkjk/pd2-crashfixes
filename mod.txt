@@ -3,8 +3,14 @@
 	"description": "1",
 	"author": "hcxdjkjk, sirdenis",
 	"contact": "comments xd",
-	"version": "1.34",
+	"version": "1.35",
 	"priority": 1,
+	"pre_hooks" : [
+		{"hook_id": "lib/entry", "script_path": "fixes/entry.lua"}
+    ],
+    "hooks":[ 
+		{"hook_id": "core/lib/system/coresystem", "script_path" : "fixes/metafunctions.lua"}
+    ],
 	"supermod_definition": "cf.xml",
 	"updates" : [
 		{

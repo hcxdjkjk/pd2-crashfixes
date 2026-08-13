@@ -1,12 +1,11 @@
 --[string "lib/managers/blackmarketmanager.lua"]:1388: attempt to index local 'equipped' (a nil value)
 local __outfit_string_mask = BlackMarketManager._outfit_string_mask
 function BlackMarketManager:_outfit_string_mask()
-	local bm = managers.blackmarket or nil
-	if bm and type(bm.equipped_mask) == "function" and
-		(
-			type(bm:equipped_mask()) == "string" or type(bm:equipped_mask()) == "table"
-		)
-		then
+	if 
+		managers.blackmarket 
+		and type(managers.blackmarket.equipped_mask) == "function" 
+		and (type(managers.blackmarket:equipped_mask()) == "string" or type(managers.blackmarket:equipped_mask()) == "table")
+	then
 		return __outfit_string_mask(self)
 	end
 	return "character_locked nothing no_color_no_material plastic"
@@ -16,9 +15,9 @@ end
 local _get_silencer_concealment_modifiers = BlackMarketManager.get_silencer_concealment_modifiers
 function BlackMarketManager:get_silencer_concealment_modifiers(weapon)
 	if 
-		type(weapon) == "table" and
-		type(weapon.factory_id) == "string" and
-		type(weapon.blueprint) == "table"
+		type(weapon) == "table"
+		and type(weapon.factory_id) == "string" 
+		and type(weapon.blueprint) == "table"
 	then
 		return _get_silencer_concealment_modifiers(self, weapon)
 	end
@@ -29,38 +28,43 @@ end
 local __calculate_weapon_concealment = BlackMarketManager._calculate_weapon_concealment
 function BlackMarketManager:_calculate_weapon_concealment(weapon)
 	if 
-		type(weapon) == "table" and
-		type(weapon.factory_id) == "string" and
-		type(weapon.blueprint) == "table"
+		type(weapon) == "table"
+		and type(weapon.factory_id) == "string"
+		and type(weapon.blueprint) == "table"
 	then
 		return __calculate_weapon_concealment(self, weapon)
 	end
 	return 0
 end
 
-function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
-	if not skin_id then
-		return
-	end
+--[string "lib/managers/blackmarketmanager.lua"]:2861: attempt to perform arithmetic on local 'value' (a table value)
+local __get_weapon_stats = BlackMarketManager._get_weapon_stats
+function BlackMarketManager:_get_weapon_stats(weapon_id, blueprint, cosmetics)
+    if not weapon_id then return end
+    if not managers.weapon_factory then return end
 
-	local skin_data = tweak_data and tweak_data.economy and tweak_data.economy.armor_skins and tweak_data.economy.armor_skins[skin_id] or nil
+    local factory_id = managers.weapon_factory.get_factory_id_by_weapon_id and managers.weapon_factory:get_factory_id_by_weapon_id(weapon_id)
+    if not factory_id then return end
 
-	if not skin_data then
-		return
-	end
-
-	Global.blackmarket_manager.equipped_armor_skin = skin_id
-
-	if not loading then
-		if managers.menu_scene and alive(managers.menu_scene._character_unit) then
-			local skin = tweak_data.economy:get_armor_skin_id(skin_id)
-
-			managers.menu_scene._character_unit:base():set_cosmetics_data(skin)
-		end
-
-		MenuCallbackHandler:_update_outfit_information()
-	end
+    local weapon_stats = managers.weapon_factory.get_stats and managers.weapon_factory:get_stats(factory_id, blueprint)
+    if #weapon_stats > 0 then
+        return __get_weapon_stats(self, weapon_id, blueprint, cosmetics)
+    end
+    return weapon_stats
 end
+
+local _set_equipped_armor_skin = BlackMarketManager.set_equipped_armor_skin
+function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
+    if 
+        skin_id 
+        and tweak_data.economy
+        and tweak_data.economy.armor_skins
+        and tweak_data.economy.armor_skins[skin_id]
+    then
+        return _set_equipped_armor_skin(self, skin_id, loading)        
+    end
+end
+
 function BlackMarketManager:get_weapon_icon_path(weapon_id, cosmetics)
     local akimbo_gui_data = tweak_data.weapon[weapon_id] and tweak_data.weapon[weapon_id].akimbo_gui_data
     local use_cosmetics = cosmetics and cosmetics.id and cosmetics.id ~= "nil" and true or false
@@ -144,10 +148,9 @@ function BlackMarketManager:_on_load_update_crafted_items()
 		return
 	end
 
-	for category, category_crafts in pairs(crafted) do
-		for i, crafted in ipairs(category_crafts) do
+	for _, category_crafts in pairs(crafted) do
+		for _, crafted in ipairs(category_crafts) do
 			if crafted.customize_locked and type(crafted.customize_locked) == "boolean" then
-
 				if crafted.cosmetics and crafted.cosmetics.id then
 					local skin_data = tweak_data.blackmarket.weapon_skins[crafted.cosmetics.id]
 					if skin_data then

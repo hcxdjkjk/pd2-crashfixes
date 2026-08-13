@@ -12,10 +12,17 @@ function PortalUnitGroup:_change_units_visibility(diff)
 		end
 	end
 end
+
 local __change_visibility = PortalUnitGroup._change_visibility
 function PortalUnitGroup:_change_visibility(unit, diff)
-	if type(unit) ~= "userdata" or not alive(unit) then return end
-	if type(unit:unit_data()) ~= "table" then return end
-	if type(unit:unit_data()._visibility_counter) ~= "number" then unit:unit_data()._visibility_counter = 0 end
-	__change_visibility(self, unit, diff)
+	if type(unit) ~= "userdata" or not alive(unit) then 
+		return 
+	end
+	if type(unit:unit_data()) ~= "table" then 
+		return 
+	end
+	if type(unit:unit_data()._visibility_counter) ~= "number" then 
+		unit:unit_data()._visibility_counter = 0 
+	end
+	return __change_visibility(self, unit, diff)
 end

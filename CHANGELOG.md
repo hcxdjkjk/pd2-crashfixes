@@ -1,3 +1,9 @@
+[1.УГАДАЙТЕ]
+
+Fixed: 
+
+    [string "lib/units/enemies/cop/actions/lower_body/copa..."]:341: attempt to index field '_nav_path' (a nil value)
+
 [1.35]
 
 Updated to U247

@@ -1,10 +1,15 @@
 --[string "lib/network/matchmaking/networkvoicechatsteam..."]:113: attempt to perform arithmetic on field 'time' (a nil value)
-local orig_func_NetworkVoiceChatSTEAM_update = NetworkVoiceChatSTEAM.update
+local _update = NetworkVoiceChatSTEAM.update
 function NetworkVoiceChatSTEAM:update()
-	local playing = self.handler:get_voice_receivers_playing()
-	for id, pl in pairs(playing) do
-		if pl and self._users_talking[id] and self._users_talking[id].time then
-        	orig_func_NetworkVoiceChatSTEAM_update(self)
-    	end
+    if not self.handler then
+        return
+    end
+
+    for _, data in pairs(self._users_talking or {}) do
+		if type(data) == "table" and type(data.time) ~= "number" then
+			data.time = 0
+		end
 	end
+
+    _update(self)
 end

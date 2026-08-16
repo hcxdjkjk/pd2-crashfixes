@@ -50,11 +50,9 @@ end
 
 local function sanitize_is_server_ok(original, check_room)
     return function(self, friends_only, room, attributes_list, is_invite)
-        if check_room then
-            room = verify_room(room)
-        end
-
+        room = verify_room(room)
         if not room then return end
+
         attributes_list = verify_attributes_list(attributes_list)
         if not attributes_list then return end
 
@@ -104,14 +102,9 @@ local function sanitize_server_job(original)
     end
 end
 
-if RequiredScript:match("networkmatchmakingepic$") then
+if RequiredScript:match("networkmatchmakingsteam$") then
 
-    NetworkMatchMakingEPIC.is_server_ok         = sanitize_is_server_ok(NetworkMatchMakingEPIC.is_server_ok, true)
-    NetworkMatchMakingEPIC._lobby_to_numbers    = sanitize_lobby_to_numbers(NetworkMatchMakingEPIC._lobby_to_numbers)
-
-elseif RequiredScript:match("networkmatchmakingsteam$") then
-
-    NetworkMatchMakingSTEAM.is_server_ok        = sanitize_is_server_ok(NetworkMatchMakingSTEAM.is_server_ok, false)
+    NetworkMatchMakingSTEAM.is_server_ok        = sanitize_is_server_ok(NetworkMatchMakingSTEAM.is_server_ok)
     NetworkMatchMakingSTEAM._lobby_to_numbers   = sanitize_lobby_to_numbers(NetworkMatchMakingSTEAM._lobby_to_numbers)
 
 elseif RequiredScript:match("crimenetmanager$") then

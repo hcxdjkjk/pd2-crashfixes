@@ -3,7 +3,7 @@
 	"description": "1",
 	"author": "hcxdjkjk, sirdenis",
 	"contact": "comments xd",
-	"version": "1.35",
+	"version": "1.35.1",
 	"priority": 1,
 	"pre_hooks" : [
 		{"hook_id": "lib/entry", "script_path": "fixes/entry.lua"}
@@ -18,7 +18,7 @@
 			"host": {
 				"meta": "https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json",
 				"download": "https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip",
-				"patchnotes": "https://modworkshop.net/mod/53443?tab=changelog"
+				"patchnotes": "https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/refs/heads/main/CHANGELOG.md"
 			}
 		}
 	]

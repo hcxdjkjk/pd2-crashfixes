@@ -1,0 +1,47 @@
+<mod name="crashfixes" description="1" author="hcxdjkjk, sirdenis" contact="comments xd" version="1.36.1" priority="1">
+	<update identifier="porno" meta="https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json"/>
+	<hooks>
+		<pre  hook_id="lib/entry" script_path="fixes/entry.lua" />
+		<post hook_id="core/lib/system/coresystem" script_path="fixes/metafunctions.lua" />
+		<post hook_id="lib/units/enemies/cop/actions/upper_body/copactionshoot" script_path="lua/copactionshoot.lua" />
+		<post hook_id="lib/units/props/timergui" script_path="lua/timergui.lua" />
+		<post hook_id="core/lib/utils/dev/editor/coreworlddefinition" script_path="lua/coreworlddefinition.lua"/>
+		<post hook_id="core/lib/managers/coreportalmanager" script_path="lua/coreportalmanager.lua" />
+		<post hook_id="lib/units/player_team/teamaidamage" script_path="lua/teamaidamage.lua" />
+		<post hook_id="lib/network/base/handlers/basenetworkhandler" script_path="lua/basenetworkhandler.lua" />
+		<post hook_id="lib/managers/group_ai_states/groupaistatebesiege" script_path="lua/groupaistatebesiege.lua" />
+		<post hook_id="lib/units/beings/player/huskplayerinventory" script_path="lua/huskplayerinventory.lua" />
+		<post hook_id="llib/network/matchmaking/networkvoicechatsteam" script_path="lua/networkvoicechatsteam.lua" />
+		<post hook_id="lib/managers/mission/elementlasertrigger" script_path="lua/elementlasertrigger.lua" />
+		<post hook_id="lib/managers/weaponfactorymanager" script_path="lua/weaponfactorymanager.lua" />
+		<post hook_id="lib/managers/mission/elementequipment" script_path="lua/elementequipment.lua" />
+		<post hook_id="lib/managers/occlusionmanager" script_path="lua/occlusionmanager.lua" />
+		<post hook_id="core/lib/utils/coreunit" script_path="lua/coreunit.lua" />
+		<post hook_id="core/lib/utils/corecode" script_path="lua/corecode.lua" />
+		<post hook_id="lib/units/interactions/interactionext" script_path="lua/interactionext.lua" />
+		<post hook_id="lib/managers/blackmarketmanager" script_path="lua/blackmarketmanager.lua" />
+		<post hook_id="core/lib/utils/coreevent" script_path="lua/coreevent.lua" />
+		<post hook_id="lib/states/ingamefatalstate" script_path="lua/ingamefatalstate.lua" />
+		<post hook_id="lib/units/weapons/newraycastweaponbase" script_path="lua/newraycastweaponbase.lua" />
+		<post hook_id="lib/managers/gameplaycentralmanager" script_path="lua/gameplaycentralmanager.lua" />
+		<post hook_id="lib/managers/mission/elementaccesscamera" script_path="lua/elementaccesscamera.lua" />
+		<post hook_id="lib/managers/hudmanagerpd2" script_path="lua/hudmanagerpd2.lua" />
+		<post hook_id="lib/tweak_data/groupaitweakdata" script_path="lua/groupaitweakdata.lua" />
+		<post hook_id="lib/managers/playermanager" script_path="lua/playermanager.lua" />
+		<post hook_id="lib/managers/trademanager" script_path="lua/trademanager.lua" />
+		<post hook_id="lib/units/enemies/cop/logics/coplogicattack" script_path="lua/coplogicattack.lua" />
+		<post hook_id="lib/units/enemies/cop/actions/upper_body/copactiontase" script_path="lua/copactiontase.lua" />
+		<post hook_id="lib/network/matchmaking/networkaccountsteam" script_path="lua/networkaccountsteam.lua" />
+		<post hook_id="lib/managers/menu/menuscenemanager" script_path="lua/menuscenemanager.lua" />
+		<post hook_id="core/lib/utils/coretable" script_path="lua/coretable.lua" />
+		<post hook_id="lib/managers/experiencemanager" script_path="lua/experiencemanager.lua" />
+		<post hook_id="lib/units/weapons/newnpcraycastweaponbase" script_path="lua/newnpcraycastweaponbase.lua" />
+		<post hook_id="lib/units/props/carrydata" script_path="lua/carrydata.lua" />
+		<post hook_id="lib/units/weapons/sentrygunweapon" script_path="lua/sentrygunweapon.lua" />
+		<post hook_id="lib/units/enemies/cop/actions/full_body/copactionhurt" script_path="lua/copactionhurt.lua" />
+		<post hook_id="lib/managers/skilltreemanager" script_path="lua/skilltreemanager.lua" />
+		<post hook_id="lib/units/equipment/shield/shieldbase" script_path="lua/shieldbase.lua" />
+		<post hook_id="lib/network/matchmaking/networkmatchmakingsteam" script_path="fixes/crimenet.lua" />
+		<post hook_id="lib/managers/crimenetmanager" script_path="fixes/crimenet.lua" />
+	</hooks>
+</mod>

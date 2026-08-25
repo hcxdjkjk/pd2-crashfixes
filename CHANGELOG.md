@@ -1,3 +1,7 @@
+[1.35.2]
+
+Replace cf.xml and mod.txt with a streamlined supermod.xml
+
 [1.35.1]
 
 Fixed: 

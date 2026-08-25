@@ -1,4 +1,4 @@
-<mod name="crashfixes" description="1" author="hcxdjkjk, sirdenis" contact="comments xd" version="1.36.1" priority="1">
+<mod name="crashfixes" description="1" author="hcxdjkjk, sirdenis" contact="comments xd" version="1.35.2" priority="1">
 	<update identifier="porno" meta="https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json"/>
 	<hooks>
 		<pre  hook_id="lib/entry" script_path="fixes/entry.lua" />

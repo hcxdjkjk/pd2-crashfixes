@@ -21,3 +21,9 @@ function HUDManager:_create_heist_timer(hud)
 		return __create_heist_timer(self, hud)
 	end
 end
+
+--teammate_progress()  lib/managers/hudmanagerpd2.lua:1864
+local _teammate_progress = HUDManager.teammate_progress
+function HUDManager:teammate_progress(peer_id, type_index, enabled, tweak_data_id, timer, success)
+    return _teammate_progress(self, peer_id, tonumber(type_index), (enabled == true), tweak_data_id, (tonumber(timer) or 0), (success == true))
+end

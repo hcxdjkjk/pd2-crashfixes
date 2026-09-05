@@ -11,7 +11,7 @@
     "hooks":[ 
 		{"hook_id": "core/lib/system/coresystem", "script_path" : "fixes/metafunctions.lua"}
     ],
-	"supermod_definition": "cf.xml",
+    "supermod_definition": "cf.xml",
 	"updates" : [
 		{
 			"identifier" : "porno",

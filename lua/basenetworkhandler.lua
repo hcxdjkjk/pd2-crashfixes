@@ -1,17 +1,13 @@
---[string "lib/network/base/handlers/basenetworkhandler.lua"]:46: attempt to index local 'rpc' (a nil value)
-local __verify_sender = BaseNetworkHandler._verify_sender
+local __verify_sender       = BaseNetworkHandler._verify_sender
 function BaseNetworkHandler._verify_sender(rpc)
     if managers.network and type(rpc) == "userdata" and rpc.ip_at_index and rpc:ip_at_index(0) then
         return __verify_sender(rpc)
     end
 end
 
+local __verify_character    = BaseNetworkHandler._verify_character
 function BaseNetworkHandler._verify_character(unit)
-    if unit and type(unit) == "userdata" and alive(unit) then
-        local cd = unit:character_damage()
-        if cd and type(cd) == "table" and not cd:dead() then
-            return true
-        end
+    if alive(unit) and (unit.character_damage and type(unit:character_damage()) == "table") then
+        return __verify_character(unit)
     end
-    return false
 end

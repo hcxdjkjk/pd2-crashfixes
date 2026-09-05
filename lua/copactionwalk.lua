@@ -1,8 +1,12 @@
---[string "lib/units/enemies/cop/actions/lower_body/copa..."]:341: attempt to index field '_nav_path' (a nil value)
-local _init = CopActionWalk.init
-function CopActionWalk:init(action_desc, common_data)
-	if action_desc and not action_desc.nav_path and common_data and common_data.pos then
-		action_desc.nav_path = { mvector3.copy(common_data.pos) }
-	end
-    return _init(self, action_desc, common_data)
+--update()  lib/units/enemies/cop/actions/lower_body/copactionwalk.lua:2390  
+--_upd_actions()  lib/units/enemies/cop/copmovement.lua:840
+--lib/units/enemies/cop/copmovement.lua:768
+function CopActionWalk._nav_point_pos(nav_point)
+    if nav_point and nav_point.x then
+        return nav_point
+    end
+    if nav_point.element and nav_point.element.value and nav_point.element:value("position") then
+        return nav_point.element:value("position")
+    end
+    return Vector3()
 end

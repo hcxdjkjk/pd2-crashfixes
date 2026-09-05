@@ -1,12 +1,24 @@
-[1.35.1]
+[1.35.]
 
-Fixed: 
+Fixed:
 
-    [string "lib/units/enemies/cop/actions/lower_body/copa..."]:341: attempt to index field '_nav_path' (a nil value)
+    [string "lib/managers/menu/crimespreemissionsmenucompo..."]:791: attempt to compare nil with number
+    [string "lib/units/weapons/sentrygunweapon.lua"]:331: attempt to index field '_setup' (a nil value)
+    [string "lib/units/beings/player/playermovement.lua"]:1170: attempt to index field '_current_state' (a nil value)
+    [string "lib/units/beings/player/playermovement.lua"]:1023: attempt to index field '_current_state' (a nil value)
+    [string "lib/units/beings/player/playermovement.lua"]:1189: attempt to index field '_current_state' (a nil value)
+    [string "lib/units/beings/player/playermovement.lua"]:1215: attempt to index field 'hud' (a nil value)
+    [string "lib/managers/playermanager.lua"]:2104: attempt to index field '_global' (a nil value)
+    [string "lib/units/beings/player/playerdamage.lua"]:955: attempt to index field 'hud' (a nil value)
+    [string "lib/units/beings/player/playerdamage.lua"]:2813: attempt to index field 'hud' (a nil value)
+    [string "lib/units/beings/player/playerdamage.lua"]:680: attempt to index field 'hud' (a nil value)
+    [string "lib/units/beings/player/playerdamage.lua"]:3399: attempt to index field 'hud' (a nil value)
+    [string "lib/units/beings/player/huskplayermovement.lua"]:504: attempt to index local 'self' (a boolean value)
+    [string "lib/units/beings/player/playermovement.lua"]:90: attempt to index field 'navigation' (a nil value)
+    [string "lib/units/beings/player/playermovement.lua"]:325: attempt to compare nil with number
 
-[1.35]
+[1.35 - 1.35.1]
 
-Updated to U247
 Various bug fixes and code improvements
 
 Fixed:

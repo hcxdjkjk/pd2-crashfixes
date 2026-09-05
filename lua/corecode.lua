@@ -1,15 +1,10 @@
 core:module("CoreCode")
-core:import("CoreTable")
-core:import("CoreDebug")
-core:import("CoreClass")
-core:import("CoreApp")
+
+local _alive = alive
 
 function alive(obj)
-	if 
-        (type(obj) == 'userdata' or type(obj) == 'table') 
-        and type(obj.alive) == 'function' 
-    then
-		return obj:alive()
-	end
-	return false
+    if obj and (type(obj) == "userdata" or type(obj) == "table") and type(obj.alive) == "function" then
+        return _alive(obj)
+    end
+    return false
 end

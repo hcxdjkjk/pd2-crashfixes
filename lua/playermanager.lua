@@ -23,3 +23,16 @@ function PlayerManager:add_special(...)
     end
     return _add_special(self, ...)
 end
+
+--[string "lib/managers/playermanager.lua"]:2479: attempt to index a number value
+--[[
+local _upgrade_value_by_level = PlayerManager.upgrade_value_by_level
+function PlayerManager:upgrade_value_by_level(category, upgrade, level, default)
+    local tw = tweak_data and tweak_data.upgrades and tweak_data.upgrades.values
+    if not (type(category) == "string" and type(upgrade) == "string" and tw and tw[category] and tw[category][upgrade] and tw[category][upgrade][level]) then 
+        log(string.format("upgrade_value_by_level: %s %s %s %s", tostring(category), tostring(upgrade), tostring(level), tostring(default)))
+        return default or 0
+    end
+	return _upgrade_value_by_level(self, category, upgrade, level, default)
+end
+]]

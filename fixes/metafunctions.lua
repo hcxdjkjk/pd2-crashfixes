@@ -24,14 +24,14 @@ packagemanager_mt.has = function(self, ids, name, ...)
     return nil
 end
 
-world_mt.spawn_unit = function(self, unit_name, pos, rot, ...)
+world_mt.spawn_unit = function(self, unit_name, ...)
     if type(unit_name) ~= "userdata" then
         return nil
     end
     if not PackageManager:has(ids_unit, unit_name:id()) then
 		return nil
 	end
-    return _world_spawn_unit(self, unit_name, pos, rot, ...)
+    return _world_spawn_unit(self, unit_name, ...)
 end
 
 world_mt.delete_unit = function (self, unit_name, ...)
@@ -60,12 +60,6 @@ world_mt.delete_camera = function (self, unit_name, ...)
     end
     return _world_delete_camera(self, unit_name, ...)
 end
-
---[[
-world_mt.unload_all_units = function (self, ...)
-   	return pcall(_world_unload_all_units, self, ...)
-end
-]]
 
 effect_manager_mt.spawn = function(self, effect_table, ...)
     if type(effect_table) ~= "table" then

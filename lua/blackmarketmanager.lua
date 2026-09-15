@@ -157,3 +157,40 @@ function BlackMarketManager:equipped_grenade()
     end
     return _equipped_grenade(self)
 end
+
+--[string "lib/managers/blackmarketmanager.lua"]:10496: attempt to index local 'equipped_mask' (a nil value)
+local _equipped_mask = BlackMarketManager.equipped_mask
+function BlackMarketManager:equipped_mask(...)
+    local result = _equipped_mask(self, ...)
+    if result then
+        return result
+    end
+    return {
+        mask_id         = "character_locked",
+        modded          = false,
+        equipped        = true,
+        global_value    = "normal",
+        blueprint       = {
+            material = {
+                id = "plastic",
+                global_value = "normal"
+            },
+            pattern = {
+                id = "no_color_no_material",
+                global_value = "normal"
+            },
+            color_a = {
+                id = "nothing",
+                global_value = "normal"
+            },
+            color_b = {
+                id = "nothing",
+                global_value = "normal"
+            },
+            color_c = {
+                id = "strip_paint",
+                global_value = "normal"
+            }
+        }
+    }
+end

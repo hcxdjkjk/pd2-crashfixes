@@ -8,9 +8,14 @@ table.insert = function (t, ...)
 end
 
 local _table_remove = table.remove
-table.remove = function (t, ...)
-	if type(t) ~= "table" then return end
-	return _table_remove(t, ...)
+table.remove = function (t, pos)
+    if type(t) ~= "table" then
+        return
+    end
+    if pos and type(pos) ~= "number" then
+        return _table_remove(t, nil)
+    end
+    return _table_remove(t, pos)
 end
 
 local _table_maxn = table.maxn
@@ -107,14 +112,6 @@ string.gsub = function (s, ...)
     return _string_gsub(s, ...)
 end
 
-local _string_byte = string.byte
-string.byte = function(s, i, j)
-	if type(s) ~= "string" then
-		return nil
-	end
-	return _string_byte(s, i, j)
-end
-
 local _math_floor = math.floor
 math.floor = function (n)
     if type(n) ~= "number" then n = 0 end
@@ -177,14 +174,6 @@ mvector3.lerp = function (a,b,c,...)
         c = Vector3()
     end
     return _mv_lerp(a,b,c,...)
-end
-
-local _bit_band = bit.band
-bit.band = function(a, b, ...)
-	if type(a) ~= 'number' or type(b) ~= 'number' then
-		return 0
-	end
-	return _bit_band(a, b, ...)
 end
 
 local _mv_x = mvector3.x

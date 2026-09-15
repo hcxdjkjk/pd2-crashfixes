@@ -1,4 +1,6 @@
-[1.35.]
+[1.36]
+
+Updated to U248
 
 Fixed:
 
@@ -16,6 +18,9 @@ Fixed:
     [string "lib/units/beings/player/huskplayermovement.lua"]:504: attempt to index local 'self' (a boolean value)
     [string "lib/units/beings/player/playermovement.lua"]:90: attempt to index field 'navigation' (a nil value)
     [string "lib/units/beings/player/playermovement.lua"]:325: attempt to compare nil with number
+    [string "lib/managers/blackmarketmanager.lua"]:10496: attempt to index local 'equipped_mask' (a nil value)
+    [string "lib/managers/playermanager.lua"]:2479: attempt to index a number value
+    [string "lib/managers/menu/menucomponentmanager.lua"]:4973: attempt to index field '_fullscreen_ws' (a nil value)
 
 [1.35 - 1.35.1]
 

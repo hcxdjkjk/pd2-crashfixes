@@ -9,7 +9,7 @@ function PlayerMovement:pre_destroy(...)
     end
     if not self._attention_handler then
         self._attention_handler = {
-            pre_destroy = function () return nil end
+            set_attention = function () return nil end
         }
     end
     return _pre_destroy(self, ...)

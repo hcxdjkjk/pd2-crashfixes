@@ -3,7 +3,7 @@
 	"description": "1",
 	"author": "hcxdjkjk, sirdenis",
 	"contact": "comments xd",
-	"version": "1.35.1",
+	"version": "1.36",
 	"priority": 1,
 	"pre_hooks" : [
 		{"hook_id": "lib/entry", "script_path": "fixes/entry.lua"}

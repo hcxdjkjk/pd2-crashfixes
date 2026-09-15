@@ -41,12 +41,18 @@ end
 local __lobby_to_numbers = NetworkMatchMakingSTEAM._lobby_to_numbers
 function NetworkMatchMakingSTEAM:_lobby_to_numbers(lobby)
     if 
-        type(lobby) == "userdata" 
-        and type(lobby.key_value) == "function"
-        and tonumber(lobby:key_value("level"))
-        and tonumber(lobby:key_value("job_id"))
+        type(lobby) ~= "userdata"
+        or (type(lobby) == "userdata" and not type(lobby.key_value) == "function") 
     then
-        return __lobby_to_numbers(self, lobby)
+        return default_attributes_numbers
     end
-    return default_attributes_numbers
+
+    local data =  __lobby_to_numbers(self, lobby)
+    for k, v in pairs(data) do
+        if type(v) ~= "number" then
+            data[k] = default_attributes_numbers[k]
+        end
+    end
+
+    return data
 end

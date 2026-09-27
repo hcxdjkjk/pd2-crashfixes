@@ -13,3 +13,11 @@ function deep_clone(o)
     end
     return _deep_clone(o)
 end
+
+local _get_vector_index = table.get_vector_index
+function table.get_vector_index(v, e)
+    if type(v) ~= "table" then
+        v = {}
+    end
+    return _get_vector_index(v, e)
+end

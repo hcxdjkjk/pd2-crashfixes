@@ -31,25 +31,15 @@ table.empty = function (t)
 end
 
 local _pairs = pairs
-if _pairs then
-    _G.pairs = function (t)
-		if type(t) ~= "table" then 
-            t = EMPTY_TABLE
-        end
-		return _pairs(t)
-    end
-    pairs = _G.pairs
+pairs = function (t)
+    if type(t) ~= "table" then t = EMPTY_TABLE end
+    return _pairs(t)
 end
 
 local _ipairs = ipairs
-if _ipairs then
-	_G.ipairs = function (t)
-        if type(t) ~= "table" then
-            t = EMPTY_TABLE
-        end
-		return _ipairs(t)
-	end
-	ipairs = _G.ipairs
+ipairs = function (t)
+    if type(t) ~= "table" then t = EMPTY_TABLE end
+    return _ipairs(t)
 end
 
 local _unpack = _G.unpack or unpack
@@ -199,3 +189,4 @@ mvector3.z = function (vector3)
     end
     return _mv_z(vector3)
 end
+

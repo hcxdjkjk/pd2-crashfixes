@@ -11,7 +11,7 @@ function _OcclusionManager:remove_occlusion(unit)
 		if alive(unit) then
 			local objects = unit:get_objects_by_type(self._model_ids)
 
-			for _, obj in pairs(objects) do
+			for _, obj in pairs(objects or {}) do
 				if type(obj) == "userdata" then
 					obj:set_skip_occlusion(true)
 				end
@@ -36,7 +36,7 @@ function _OcclusionManager:add_occlusion(unit)
 	if alive(unit) then
 		local objects = unit:get_objects_by_type(self._model_ids)
 
-		for _, obj in pairs(objects) do
+		for _, obj in pairs(objects or {}) do
 			if type(obj) == "userdata" then
 				obj:set_skip_occlusion(false)
 			end

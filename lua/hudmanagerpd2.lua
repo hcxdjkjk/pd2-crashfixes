@@ -27,3 +27,11 @@ local _teammate_progress = HUDManager.teammate_progress
 function HUDManager:teammate_progress(peer_id, type_index, enabled, tweak_data_id, timer, success)
     return _teammate_progress(self, peer_id, tonumber(type_index), (enabled == true), tweak_data_id, (tonumber(timer) or 0), (success == true))
 end
+
+local __set_teammate_weapon_selected = HUDManager._set_teammate_weapon_selected
+function HUDManager:_set_teammate_weapon_selected(i, ...)
+    if not (self and self._teammate_panels and self._teammate_panels[i] and self._teammate_panels[i].set_weapon_selected) then
+        return
+    end
+    return __set_teammate_weapon_selected(self, i, ...)
+end

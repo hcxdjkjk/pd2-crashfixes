@@ -36,3 +36,15 @@ function PlayerManager:upgrade_value_by_level(category, upgrade, level, default)
 	return _upgrade_value_by_level(self, category, upgrade, level, default)
 end
 ]]
+
+--[string "lib/managers/playermanager.lua"]:1163: attempt to index a nil value
+local _spawned_player = PlayerManager.spawned_player
+function PlayerManager:spawned_player(id, unit)
+    if type(unit) ~= "userdata" then
+        return
+    end
+    if id == 1 and not (unit.inventory and unit:inventory()) then
+        return
+    end
+    return _spawned_player(self, id, unit)
+end

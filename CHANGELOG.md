@@ -1,4 +1,4 @@
-[1.36]
+[1.36 - 1.36.1]
 
 Updated to U248
 
@@ -21,6 +21,8 @@ Fixed:
     [string "lib/managers/blackmarketmanager.lua"]:10496: attempt to index local 'equipped_mask' (a nil value)
     [string "lib/managers/playermanager.lua"]:2479: attempt to index a number value
     [string "lib/managers/menu/menucomponentmanager.lua"]:4973: attempt to index field '_fullscreen_ws' (a nil value)
+    [string "lib/managers/playermanager.lua"]:1163: attempt to index a nil value
+    [string "lib/managers/social_hub/socialhubpanels.lua"]:127: bad argument #1 to 'ipairs' (table expected, got nil)
 
 [1.35 - 1.35.1]
 

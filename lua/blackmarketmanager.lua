@@ -1,4 +1,4 @@
---[string "lib/managers/blackmarketmanager.lua"]:1327: attempt to index local 'equipped' (a nil value)
+--[string "lib/managers/blackmarketmanager.lua"]:1369: attempt to index local 'equipped' (a nil value)
 local __outfit_string_mask = BlackMarketManager._outfit_string_mask
 function BlackMarketManager:_outfit_string_mask()
 	if 
@@ -28,13 +28,14 @@ end
 local __get_weapon_stats = BlackMarketManager._get_weapon_stats
 function BlackMarketManager:_get_weapon_stats(weapon_id, blueprint, cosmetics)
     if not weapon_id then return end
-    if not managers.weapon_factory then return end
+    local wmf = managers.weapon_factory
+    if not wmf then return end
 
-    local factory_id = managers.weapon_factory.get_factory_id_by_weapon_id and managers.weapon_factory:get_factory_id_by_weapon_id(weapon_id)
+    local factory_id = wmf.get_factory_id_by_weapon_id and wmf:get_factory_id_by_weapon_id(weapon_id)
     if not factory_id then return end
 
-    local weapon_stats = managers.weapon_factory.get_stats and managers.weapon_factory:get_stats(factory_id, blueprint)
-    if #weapon_stats > 0 then
+    local weapon_stats = wmf.get_stats and wmf:get_stats(factory_id, blueprint)
+    if weapon_stats and #weapon_stats > 0 then
         return __get_weapon_stats(self, weapon_id, blueprint, cosmetics)
     end
     return weapon_stats

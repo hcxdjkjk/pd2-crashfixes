@@ -4,9 +4,7 @@ local _is_server_ok = NetworkMatchMakingSTEAM.is_server_ok
 function NetworkMatchMakingSTEAM:is_server_ok(friends_only, room, attributes_list, is_invite)
 
     local function verify_mods(modlist)
-        if modlist == "7d66a433be3a1fe2" then
-            return modlist
-        end
+        if modlist == "7d66a433be3a1fe2" then return modlist end
         if
             type(modlist) ~= "string"
             or modlist == "empty"
@@ -14,6 +12,7 @@ function NetworkMatchMakingSTEAM:is_server_ok(friends_only, room, attributes_lis
         then
             return "7d66a433be3a1fe2"
         end
+
         local chunks = string.split(modlist, '|')
         for i = 1, #chunks, 2 do
             local folder = chunks[i]
@@ -24,10 +23,11 @@ function NetworkMatchMakingSTEAM:is_server_ok(friends_only, room, attributes_lis
             chunks[i + 1] = name
         end
         modlist = table.concat(chunks, '|')
+
         return modlist
     end
 
-    for k, v in pairs(attributes_list.numbers) do
+    for k, v in pairs(attributes_list.numbers or {}) do
 		if type(v) ~= "number" then
 			attributes_list.numbers[k] = default_attributes_numbers[k]
 		end
@@ -36,23 +36,4 @@ function NetworkMatchMakingSTEAM:is_server_ok(friends_only, room, attributes_lis
     attributes_list.mods = verify_mods(attributes_list.mods)
 
     return _is_server_ok(self, friends_only == true, room ,attributes_list, is_invite == true)
-end
-
-local __lobby_to_numbers = NetworkMatchMakingSTEAM._lobby_to_numbers
-function NetworkMatchMakingSTEAM:_lobby_to_numbers(lobby)
-    if 
-        type(lobby) ~= "userdata"
-        or (type(lobby) == "userdata" and not type(lobby.key_value) == "function") 
-    then
-        return default_attributes_numbers
-    end
-
-    local data =  __lobby_to_numbers(self, lobby)
-    for k, v in pairs(data) do
-        if type(v) ~= "number" then
-            data[k] = default_attributes_numbers[k]
-        end
-    end
-
-    return data
 end

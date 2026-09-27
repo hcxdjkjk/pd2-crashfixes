@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <mod>
 	<hooks>
 		<post script_path="lua/copactionshoot.lua" hook_id="lib/units/enemies/cop/actions/upper_body/copactionshoot"/>
@@ -42,5 +41,7 @@
         <post script_path="lua/playerdamage.lua" hook_id="lib/units/beings/player/playerdamage"/>
         <post script_path="lua/huskplayermovement.lua" hook_id="lib/units/beings/player/huskplayermovement"/>
         <post script_path="lua/menucomponentmanager.lua" hook_id="lib/managers/menu/menucomponentmanager"/>
+        <post script_path="lua/socialhubpanels.lua" hook_id="lib/managers/social_hub/socialhubpanels"/>
+        <post script_path="lua/managespawnedunits.lua" hook_id="lib/units/props/managespawnedunits"/>
   	</hooks>
 </mod>

@@ -8,20 +8,19 @@ local massunitmanager_mt                = getmetatable(MassUnitManager)
 local _world_spawn_unit                 = world_mt.spawn_unit
 local _world_delete_unit                = world_mt.delete_unit
 local _world_delete_camera              = world_mt.delete_camera
-local _world_delete_light                = world_mt.delete_light
-local _world_unload_all_units           = world_mt.unload_all_units
+local _world_delete_light               = world_mt.delete_light
 local _effectmanager_spawn              = effect_manager_mt.spawn
 local _packagemanager_has               = packagemanager_mt.has
 local _massunitmanager_spawn_unit       = massunitmanager_mt.spawn_unit
 
 packagemanager_mt.has = function(self, ids, name, ...)
-    if 
-        (type(ids) == "userdata" and type_name(ids) == "Idstring")
-        and (type(name) == "userdata" and type_name(ids) == "Idstring")
-    then
-        return _packagemanager_has(self, ids, name, ...)
+    if type_name(ids) ~= "Idstring" then
+        return
     end
-    return nil
+    if type_name(name) ~= "Idstring" then
+        return
+    end
+    return _packagemanager_has(self, ids, name, ...)
 end
 
 world_mt.spawn_unit = function(self, unit_name, ...)

@@ -1,7 +1,9 @@
 --[string "lib/units/enemies/cop/logics/coplogicbase.lua"]:1551: attempt to index local 'data' (a nil value)
-local orig_func_inc_dodge_count = TeamAIDamage.inc_dodge_count
-function TeamAIDamage:inc_dodge_count(n)
-    if alive(self._unit) and self._unit:brain() and self._unit:brain()._logic_data then
-        orig_func_inc_dodge_count(self, n)
+local _inc_dodge_count = TeamAIDamage.inc_dodge_count
+function TeamAIDamage:inc_dodge_count(...)
+    local unit = alive(self._unit) and self._unit.brain and self._unit:brain()
+    if not (unit and unit._logic_data) then
+        return
     end
+    return _inc_dodge_count(self, ...)
 end

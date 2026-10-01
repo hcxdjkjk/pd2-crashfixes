@@ -21,10 +21,9 @@ function ManageSpawnedUnits:load(data)
 		for unit_id, synced_entry in pairs(save_data.local_units or {}) do
             if synced_entry and synced_entry.unit_name then
     			local name_ids = Idstring(synced_entry.unit_name) --fixed by Max from GosUslugi
-                if not DB:has(IDS_UNIT, name_ids) then return end
-                if not PackageManager:has(IDS_UNIT, name_ids) then return end
-
-    			if synced_entry.joint_table then
+                if not DB:has(IDS_UNIT, name_ids) then
+                elseif not PackageManager:has(IDS_UNIT, name_ids) then 
+                elseif synced_entry.joint_table then
     				self:spawn_and_link_unit(synced_entry.joint_table, unit_id, synced_entry.unit_name)
     			else
     				self:spawn_unit(unit_id, synced_entry.align_obj_name, synced_entry.unit_name)

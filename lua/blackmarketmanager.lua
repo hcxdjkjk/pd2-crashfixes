@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/blackmarketmanager.lua"]:1369: attempt to index local 'equipped' (a nil value)
 local __outfit_string_mask = BlackMarketManager._outfit_string_mask
 function BlackMarketManager:_outfit_string_mask()
@@ -60,7 +63,7 @@ function BlackMarketManager:get_weapon_icon_path(weapon_id, cosmetics)
     local id = use_cosmetics and cosmetics.id or akimbo_gui_data and akimbo_gui_data.weapon_id or weapon_id
     local path = use_cosmetics and "weapon_skins/" or "textures/pd2/blackmarket/icons/weapons/"
     local weapon_tweak = data and id and data[id]
-    local texture_path, rarity_path = nil
+    local texture_path, rarity_path
 
     if weapon_tweak then
         local guis_catalog = "guis/"

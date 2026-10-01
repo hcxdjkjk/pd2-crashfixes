@@ -5,7 +5,7 @@ function CopActionWalk._nav_point_pos(nav_point)
     if nav_point and nav_point.x then
         return nav_point
     end
-    if nav_point.element and nav_point.element.value and nav_point.element:value("position") then
+    if nav_point and nav_point.element and nav_point.element.value and nav_point.element:value("position") then
         return nav_point.element:value("position")
     end
     return Vector3()

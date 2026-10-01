@@ -4,12 +4,12 @@ local _pre_destroy = PlayerMovement.pre_destroy
 function PlayerMovement:pre_destroy(...)
     if not self._current_state then
         self._current_state = {
-            pre_destroy = function () return nil end
+            pre_destroy = function() end
         }
     end
     if not self._attention_handler then
         self._attention_handler = {
-            set_attention = function () return nil end
+            set_attention = function() end
         }
     end
     return _pre_destroy(self, ...)
@@ -25,25 +25,19 @@ function PlayerMovement:object_interaction_blocked()
 end
 
 --[string "lib/units/beings/player/playermovement.lua"]:1189: attempt to index field '_current_state' (a nil value)
-function PlayerMovement:destroy(unit)
-	if self._link_data then
-		self._link_data.parent:base():remove_destroy_listener("PlayerMovement" .. tostring(self._unit:key()))
-	end
-    
-    if self._current_state and self._current_state.destroy then
-    	self._current_state:destroy(unit)
+local _destroy = PlayerMovement.destroy
+function PlayerMovement:destroy(...)
+    if not self._current_state then
+        self._current_state = {
+            destroy = function () end
+        }
     end
-
-    if managers.hud then
-    	managers.hud:set_suspicion(false)
+    if not managers.hud then
+        managers.hud = {
+            set_suspicion = function() end
+        }
     end
-
-	SoundDevice:set_rtpc("suspicion", 0)
-	SoundDevice:set_rtpc("stamina", 100)
-
-	if alive(self._orientation_unit) then
-		World:delete_unit(self._orientation_unit)
-	end
+    return _destroy(self, ...)
 end
 
 --[string "lib/units/beings/player/playermovement.lua"]:1215: attempt to index field 'hud' (a nil value)

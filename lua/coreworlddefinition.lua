@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 core:module("CoreWorldDefinition")
 core:import("CoreUnit")
 core:import("CoreMath")

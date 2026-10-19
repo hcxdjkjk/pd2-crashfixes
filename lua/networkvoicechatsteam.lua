@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/network/matchmaking/networkvoicechatsteam..."]:113: attempt to perform arithmetic on field 'time' (a nil value)
 local _update = NetworkVoiceChatSTEAM.update
 function NetworkVoiceChatSTEAM:update()

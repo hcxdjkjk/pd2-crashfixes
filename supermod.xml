@@ -1,0 +1,163 @@
+<mod 
+    name="crashfixes" 
+    description=""
+    version="1.37"
+    priority="1"
+    author="hcxdjkjk sirdenis" 
+    contact="comments">
+
+    <updates>
+        <update 
+            identifier="porno" 
+            display_name="crashfixes" 
+            meta="https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/main/meta.json" 
+            download="https://github.com/hcxdjkjk/pd2-crashfixes/archive/refs/heads/main.zip" 
+            patchnotes="https://raw.githubusercontent.com/hcxdjkjk/pd2-crashfixes/refs/heads/main/CHANGELOG.md"/>
+    </updates>
+
+    <hooks>
+
+        <group script_path="lua/">
+
+            <entry :script_path="entry.lua"/>
+            <!--lib/-->
+            <group hook_id="lib/">
+
+                <!--lib/tweak_data/-->
+                <group :hook_id="tweak_data">
+                    <post :hook_id="groupaitweakdata"                   :script_path="groupaitweakdata.lua"/>
+                </group>
+
+                <!--lib/managers/-->
+                <group :hook_id="managers/">
+                    
+                    <post :hook_id="social_hub/socialhubpanels"         :script_path="socialhubpanels.lua"/>
+                    <post :hook_id="occlusionmanager"                   :script_path="occlusionmanager.lua"/>
+                    <post :hook_id="blackmarketmanager"                 :script_path="blackmarketmanager.lua"/>
+                    <post :hook_id="experiencemanager"                  :script_path="experiencemanager.lua"/>
+                    <post :hook_id="playermanager"                      :script_path="playermanager.lua"/>
+                    <post :hook_id="trademanager"                       :script_path="trademanager.lua"/>
+                    <post :hook_id="hudmanagerpd2"                      :script_path="hudmanagerpd2.lua"/>
+                    <post :hook_id="gameplaycentralmanager"             :script_path="gameplaycentralmanager.lua"/>
+                    <post :hook_id="weaponfactorymanager"               :script_path="weaponfactorymanager.lua"/>
+
+                    <!--lib/managers/group_ai_states/-->
+                    <group :hook_id="group_ai_states/">
+                        <post :hook_id="groupaistatebesiege"            :script_path="groupaistatebesiege.lua"/>
+                    </group>
+
+                    <!--lib/managers/menu/-->
+                    <group :hook_id="menu/">
+                        <post :hook_id="menuscenemanager"               :script_path="menuscenemanager.lua"/>
+                        <post :hook_id="menucomponentmanager"           :script_path="menucomponentmanager.lua"/>
+                        <post :hook_id="crimespreemissionsmenucomponent":script_path="crimespreemissionsmenucomponent.lua"/>
+                    </group>
+
+                    <!--lib/managers/mission/-->
+                    <group :hook_id="mission/">
+                        <post :hook_id="elementaccesscamera"            :script_path="elementaccesscamera.lua"/>
+                        <post :hook_id="elementequipment"               :script_path="elementequipment.lua"/>
+                    </group>
+
+                </group>
+
+                <!--lib/units/-->
+                <group :hook_id="units/">
+
+                    <post :hook_id="equipment/shield/shieldbase"        :script_path="shieldbase.lua"/>
+                    <post :hook_id="interactions/interactionext"        :script_path="interactionext.lua"/>
+                    <post :hook_id="player_team/teamaidamage"           :script_path="teamaidamage.lua"/>
+                    <post :hook_id="armorskinext"                       :script_path="armorskinext.lua"/>
+                    <post :hook_id="contourext"                         :script_path="contourext.lua"/>
+
+                    <!--lib/units/weapons/-->
+                    <group :hook_id="weapons/">
+                        <post :hook_id="sentrygunweapon"                :script_path="sentrygunweapon.lua"/>
+                        <post :hook_id="newraycastweaponbase"           :script_path="newraycastweaponbase.lua"/>
+                        <post :hook_id="cosmeticsweaponbase"            :script_path="cosmeticsweaponbase.lua"/>
+                        <post :hook_id="menuraycastweaponbase"          :script_path="menuraycastweaponbase.lua"/>
+                    </group>
+                    
+                    <!--lib/units/props/-->
+                    <group :hook_id="props/">
+                        <post :hook_id="timergui"                       :script_path="timergui.lua"/>
+                        <post :hook_id="managespawnedunits"             :script_path="managespawnedunits.lua"/>
+                    </group>
+
+                    <!--lib/units/enemies/cop/-->
+                    <group :hook_id="enemies/cop/">
+                        <post :hook_id="logics/coplogicattack"          :script_path="coplogicattack.lua"/>
+                        <post :hook_id="copdamage"                      :script_path="copdamage.lua"/>
+
+                        <!--lib/units/enemies/cop/actions/-->
+                        <group :hook_id="actions/">
+                            
+                            <post :hook_id="full_body/copactionhurt"    :script_path="copactionhurt.lua"/>
+                            <post :hook_id="lower_body/copactionwalk"   :script_path="copactionwalk.lua"/>
+
+                            <!--lib/units/enemies/cop/actions/upper_body/-->
+                            <group :hook_id="upper_body/">
+                                <post :hook_id="copactionshoot"         :script_path="copactionshoot.lua"/>
+                                <post :hook_id="copactiontase"          :script_path="copactiontase.lua"/>
+                            </group>
+                            
+                        </group>
+                    
+                    </group>
+
+                    <!--lib/units/beings/player/-->
+                    <group :hook_id="beings/player/">
+                        <post :hook_id="huskplayermovement"             :script_path="huskplayermovement.lua"/>
+                        <post :hook_id="playerdamage"                   :script_path="playerdamage.lua"/>
+                        <post :hook_id="playermovement"                 :script_path="playermovement.lua"/>
+                        <post :hook_id="huskplayerinventory"            :script_path="huskplayerinventory.lua"/>
+                    </group>
+
+                </group>
+
+                <!--lib/network/-->
+                <group :hook_id="network/">
+
+                    <post :hook_id="base/handlers/basenetworkhandler"   :script_path="basenetworkhandler.lua"/>
+
+                    <!--lib/network/matchmaking/-->
+                    <group :hook_id="matchmaking/">
+                        <post :hook_id="networkvoicechatsteam"          :script_path="networkvoicechatsteam.lua"/>
+                        <post :hook_id="networkmatchmakingsteam"        :script_path="networkmatchmakingsteam.lua"/>
+                    </group>
+
+                </group>
+
+                <!--lib/states/-->
+                <group :hook_id="states/">
+                    <post :hook_id="ingamefatalstate"                   :script_path="ingamefatalstate.lua"/>
+                </group>
+
+            </group>
+
+            <!--core/lib/-->
+            <group hook_id="core/lib/">
+
+                <post :hook_id="system/coresystem"                      :script_path="coresystem.lua"/>
+
+                <!--core/lib/managers/-->
+                <group :hook_id="managers/">
+                    <post :hook_id="coresequencemanager"                :script_path="coresequencemanager.lua"/>
+                    <post :hook_id="coreportalmanager"                  :script_path="coreportalmanager.lua"/>
+                </group>
+
+                <!--core/lib/utils/-->
+                <group :hook_id="utils/">
+                    <post :hook_id="dev/editor/coreworlddefinition"     :script_path="coreworlddefinition.lua"/>
+                    <post :hook_id="coreunit"                           :script_path="coreunit.lua"/>
+                    <post :hook_id="corecode"                           :script_path="corecode.lua"/>
+                    <post :hook_id="coreevent"                          :script_path="coreevent.lua"/>
+                    <post :hook_id="coretable"                          :script_path="coretable.lua"/>
+                    <post :hook_id="coremath"                           :script_path="coremath.lua"/>
+                </group>
+            </group>
+
+        </group>
+
+  	</hooks>
+</mod>

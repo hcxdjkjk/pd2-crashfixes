@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string] "lib/managers/gameplaycentralmanager"]:768: attempt to index a number value
 local _mission_disable_unit = GamePlayCentralManager.mission_disable_unit
 function GamePlayCentralManager:mission_disable_unit(unit)

@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/playermanager.lua"]:468: attempt to index field '_ammo_efficiency' (a nil value)
 local __on_enter_ammo_efficiency_event = PlayerManager._on_enter_ammo_efficiency_event
 function PlayerManager:_on_enter_ammo_efficiency_event()
@@ -34,4 +37,13 @@ function PlayerManager:spawned_player(id, unit)
         return
     end
     return _spawned_player(self, id, unit)
+end
+
+--[string "lib/managers/playermanager.lua"]:5348: attempt to index a nil value
+local _set_synced_grenades = PlayerManager.set_synced_grenades
+function PlayerManager:set_synced_grenades(peer_id, grenade, amount, register_peer_id)
+    if not tweak_data.blackmarket.projectiles[grenade] then
+        return
+    end
+    return _set_synced_grenades(self, peer_id, grenade, (tonumber(amount) or 0), register_peer_id)
 end

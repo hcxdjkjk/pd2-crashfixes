@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/hudmanagerpd2.lua"]:756: attempt to index a nil value
 local __create_assault_corner = HUDManager._create_assault_corner
 function HUDManager:_create_assault_corner()

@@ -1,3 +1,15 @@
+[1.37]
+
+Fixed:
+
+    [string "core/lib/managers/coresequencemanager.lua"]:1965: attempt to call upvalue '__func' (a number value)
+    [string "core/lib/managers/coresequencemanager.lua"]:5024: attempt to index local 'obj' (a number value)
+    [string "lib/units/props/managespawnedunits.lua"]:621: cannot assign undeclared global 'removed'
+    [string "core/lib/managers/coresequencemanager.lua"]:6222: attempt to index a nil value
+    [string "lib/units/contourext.lua"]:1044: attempt to index field 'occlusion' (a nil value)
+    [string "lib/managers/playermanager.lua"]:5348: attempt to index a nil value
+    [string "lib/units/weapons/menuraycastweaponbase.lua"]:581: attempt to index field 'unit' (a nil value)
+
 [1.36 - 1.36.2]
 
 Updated to U248

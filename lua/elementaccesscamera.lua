@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/mission/elementaccesscamera.lua"]:41: attempt to call method 'set_access_camera_mission_element' (a nil value)
 local __load_unit = ElementAccessCamera._load_unit
 function ElementAccessCamera:_load_unit(unit)

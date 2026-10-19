@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/experiencemanager.lua"]:813: attempt to perform arithmetic on local 'mission_xp_dissect' (a table value)
 local _get_xp_by_params = ExperienceManager.get_xp_by_params
 function ExperienceManager:get_xp_by_params(params)

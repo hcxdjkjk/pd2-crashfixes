@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 -- [string "lib/managers/group_ai_states/groupaistatebesi..."]:1572: attempt to index local 'spawned_unit' (a nil value)
 local __perform_group_spawning = GroupAIStateBesiege._perform_group_spawning
 function GroupAIStateBesiege:_perform_group_spawning(spawn_task, force, use_last)

@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/trademanager.lua"]:694: attempt to index a nil value
 local __send_begin_trade = TradeManager._send_begin_trade
 function TradeManager:_send_begin_trade(criminal)

@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/units/beings/player/playerdamage.lua"]:955: attempt to index field 'hud' (a nil value)
 local _set_health = PlayerDamage.set_health
 function PlayerDamage:set_health(...)

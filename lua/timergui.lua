@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 -- [string "lib/units/props/timergui.lua"]:655: bad argument #1 to 'floor' (number expected, got nil)
 -- [string "lib/units/props/timergui.lua"]:534: attempt to perform arithmetic on field '_current_timer' (a nil value)
 

@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/managers/social_hub/socialhubpanels.lua"]:127: bad argument #1 to 'ipairs' (table expected, got nil)
 local _mouse_moved = SocialHubUserItem.mouse_moved
 function SocialHubUserItem:mouse_moved(...)

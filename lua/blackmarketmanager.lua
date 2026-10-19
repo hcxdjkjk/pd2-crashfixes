@@ -30,18 +30,21 @@ end
 --[string "lib/managers/blackmarketmanager.lua"]:2861: attempt to perform arithmetic on local 'value' (a table value)
 local __get_weapon_stats = BlackMarketManager._get_weapon_stats
 function BlackMarketManager:_get_weapon_stats(weapon_id, blueprint, cosmetics)
-    if not weapon_id then return end
     local wmf = managers.weapon_factory
-    if not wmf then return end
-
-    local factory_id = wmf.get_factory_id_by_weapon_id and wmf:get_factory_id_by_weapon_id(weapon_id)
-    if not factory_id then return end
-
-    local weapon_stats = wmf.get_stats and wmf:get_stats(factory_id, blueprint)
-    if weapon_stats and #weapon_stats > 0 then
-        return __get_weapon_stats(self, weapon_id, blueprint, cosmetics)
+    if not (weapon_id and wmf and type(blueprint) == "table") then
+        return
     end
-    return weapon_stats
+
+    local weapon_tweak = tweak_data.weapon[weapon_id]
+    if not (weapon_tweak and type(weapon_tweak.stats) == "table") then
+        return
+    end
+
+    if not wmf:get_factory_id_by_weapon_id(weapon_id) then
+        return
+    end
+
+    return __get_weapon_stats(self, weapon_id, blueprint, cosmetics)
 end
 
 local _set_equipped_armor_skin = BlackMarketManager.set_equipped_armor_skin
@@ -56,101 +59,34 @@ function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
     end
 end
 
+local _get_weapon_icon_path = BlackMarketManager.get_weapon_icon_path
 function BlackMarketManager:get_weapon_icon_path(weapon_id, cosmetics)
-    local akimbo_gui_data = tweak_data.weapon[weapon_id] and tweak_data.weapon[weapon_id].akimbo_gui_data
-    local use_cosmetics = cosmetics and cosmetics.id and cosmetics.id ~= "nil" and true or false
-    local data = use_cosmetics and tweak_data.blackmarket.weapon_skins or tweak_data.weapon
-    local id = use_cosmetics and cosmetics.id or akimbo_gui_data and akimbo_gui_data.weapon_id or weapon_id
-    local path = use_cosmetics and "weapon_skins/" or "textures/pd2/blackmarket/icons/weapons/"
-    local weapon_tweak = data and id and data[id]
-    local texture_path, rarity_path
+    if cosmetics and cosmetics.id and cosmetics.id ~= "nil" then
+        local weapon_tweak = tweak_data.blackmarket.weapon_skins[cosmetics.id]
 
-    if weapon_tweak then
-        local guis_catalog = "guis/"
-        local bundle_folder = weapon_tweak.texture_bundle_folder
-
-        local is_tam_skin = use_cosmetics
+        if weapon_tweak
             and weapon_tweak.global_value == "tam"
             and not weapon_tweak.is_a_color_skin
             and string.match(cosmetics.id, "tam")
+        then
+            local guis_catalog = "guis/"
+            local bundle = weapon_tweak.texture_bundle_folder
 
-        if is_tam_skin then
-            if bundle_folder then
-                guis_catalog = guis_catalog .. "dlcs/" .. tostring(bundle_folder) .. "/"
+            if bundle then
+                guis_catalog = guis_catalog .. "dlcs/" .. tostring(bundle) .. "/"
             end
-            local texture_name = weapon_tweak.texture_name or tostring(id)
-            texture_path = guis_catalog .. path .. texture_name
-            if use_cosmetics then
-                if weapon_tweak.color then
-                    rarity_path = "guis/dlcs/wcs/textures/pd2/blackmarket/icons/rarity_color"
-                    texture_path = self:get_weapon_icon_path(weapon_id, nil)
-                else
-                    local rarity = weapon_tweak.rarity or "common"
-                    rarity_path = tweak_data.economy.rarities[rarity] and tweak_data.economy.rarities[rarity].bg_texture
-                end
-            end
-        else
-            if bundle_folder then
-                guis_catalog = guis_catalog .. "dlcs/"
-                if use_cosmetics and weapon_tweak.texture_bundle_folder_is_short then
-                    guis_catalog = guis_catalog .. "cash/safes/"
-                end
-                guis_catalog = guis_catalog .. tostring(bundle_folder) .. "/"
-            end
-            local texture_name = nil
-            if use_cosmetics then
-                local skin_data = tweak_data.blackmarket.weapon_skins[cosmetics.id]
-				local is_there_even_fucking_data = skin_data
-                local is_cosmetic_base_weapon_id = is_there_even_fucking_data and skin_data.weapon_id == weapon_id or false
-                if is_cosmetic_base_weapon_id and is_there_even_fucking_data then
-                    texture_name = cosmetics.id
-				elseif is_there_even_fucking_data then
-                    texture_name = cosmetics.id .. "_" .. weapon_id
-                else
-					texture_name = nil
-				end
-            else
-                texture_name = weapon_tweak.texture_name or tostring(id)
-            end
-			if not texture_name then
-				texture_path = nil
-			else
-				texture_path = guis_catalog .. path .. texture_name
-			end
-            if use_cosmetics then
-                if weapon_tweak.color then
-                    rarity_path = "guis/dlcs/wcs/textures/pd2/blackmarket/icons/rarity_color"
-                    texture_path = self:get_weapon_icon_path(weapon_id, nil)
-                else
-                    local rarity = weapon_tweak.rarity or "common"
-                    rarity_path = tweak_data.economy.rarities[rarity] and tweak_data.economy.rarities[rarity].bg_texture
-                end
-            end
+
+            local texture_name = weapon_tweak.texture_name or cosmetics.id
+            local texture_path = guis_catalog .. "weapon_skins/" .. texture_name
+
+            local rarity = weapon_tweak.rarity or "common"
+            local rarity_path = tweak_data.economy.rarities[rarity]
+                and tweak_data.economy.rarities[rarity].bg_texture
+
+            return texture_path, rarity_path
         end
     end
-
-    return texture_path, rarity_path
-end
-
-function BlackMarketManager:_on_load_update_crafted_items()
-	local crafted = self._global.crafted_items
-
-	if not crafted then
-		return
-	end
-
-	for _, category_crafts in pairs(crafted) do
-		for _, crafted in ipairs(category_crafts) do
-			if crafted.customize_locked and type(crafted.customize_locked) == "boolean" then
-				if crafted.cosmetics and crafted.cosmetics.id then
-					local skin_data = tweak_data.blackmarket.weapon_skins[crafted.cosmetics.id]
-					if skin_data then
-						crafted.customize_locked = skin_data.locked
-					end
-				end
-			end
-		end
-	end
+    return _get_weapon_icon_path(self, weapon_id, cosmetics)
 end
 
 --[string "lib/managers/blackmarketmanager.lua"]:766: attempt to index field 'grenades' (a nil value)
@@ -166,9 +102,7 @@ end
 local _equipped_mask = BlackMarketManager.equipped_mask
 function BlackMarketManager:equipped_mask(...)
     local result = _equipped_mask(self, ...)
-    if result then
-        return result
-    end
+    if result then return result end
     return {
         mask_id         = "character_locked",
         modded          = false,

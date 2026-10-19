@@ -1,13 +1,16 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/units/beings/player/playermovement.lua"]:1168: attempt to index field '_attention_handler' (a nil value)
 --[string "lib/units/beings/player/playermovement.lua"]:1170: attempt to index field '_current_state' (a nil value)
 local _pre_destroy = PlayerMovement.pre_destroy
 function PlayerMovement:pre_destroy(...)
-    if not self._current_state then
+    if not (self._current_state and self._current_state.pre_destroy) then
         self._current_state = {
             pre_destroy = function() end
         }
     end
-    if not self._attention_handler then
+    if not (self._attention_handler and self._attention_handler.set_attention) then
         self._attention_handler = {
             set_attention = function() end
         }
@@ -25,14 +28,15 @@ function PlayerMovement:object_interaction_blocked()
 end
 
 --[string "lib/units/beings/player/playermovement.lua"]:1189: attempt to index field '_current_state' (a nil value)
+--[string "lib/units/beings/player/playermovement.lua"]:1201: attempt to call method 'destroy' (a nil value)
 local _destroy = PlayerMovement.destroy
 function PlayerMovement:destroy(...)
-    if not self._current_state then
+    if not (self._current_state and self._current_state.destroy) then
         self._current_state = {
             destroy = function () end
         }
     end
-    if not managers.hud then
+    if not (managers.hud and managers.hud.set_suspicion) then
         managers.hud = {
             set_suspicion = function() end
         }
@@ -54,7 +58,7 @@ local _init = PlayerMovement.init
 function PlayerMovement:init(...)
     if not managers.navigation then
         managers.navigation = {
-			convert_access_flag = function() return nil end
+			convert_access_flag = function() end
 		}
     end 
     return _init(self,...)

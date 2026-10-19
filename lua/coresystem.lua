@@ -1,4 +1,5 @@
-local ids_unit                          = IDS_UNIT or Idstring("unit")
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
 
 local world_mt                          = getmetatable(World)
 local effect_manager_mt                 = getmetatable(World:effect_manager())
@@ -24,13 +25,13 @@ packagemanager_mt.has = function(self, ids, name, ...)
 end
 
 world_mt.spawn_unit = function(self, unit_name, ...)
-    if type(unit_name) ~= "userdata" then
-        return nil
-    end
-    if not PackageManager:has(ids_unit, unit_name:id()) then
+	if type(unit_name) ~= "userdata" then
 		return nil
 	end
-    return _world_spawn_unit(self, unit_name, ...)
+    if not PackageManager:has(IDS_UNIT, unit_name:id()) then
+        return
+    end
+	return _world_spawn_unit(self, unit_name, ...)
 end
 
 world_mt.delete_unit = function (self, unit_name, ...)

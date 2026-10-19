@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --update()  lib/units/enemies/cop/actions/lower_body/copactionwalk.lua:2390  
 --_upd_actions()  lib/units/enemies/cop/copmovement.lua:840
 --lib/units/enemies/cop/copmovement.lua:768

@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/units/enemies/cop/logics/coplogicattack.lua"]:147: attempt to index field 'team' (a nil value)
 local _update = CopLogicAttack.update
 function CopLogicAttack.update(data)

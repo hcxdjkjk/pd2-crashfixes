@@ -1,4 +1,11 @@
-local verify_weapon = function(fname) return not not (fname and tweak_data.weapon and tweak_data.weapon.factory and tweak_data.weapon.factory[fname]) end
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
+local verify_weapon = function(fname) 
+    local tw = tweak_data.weapon
+    local tf = tw and tw.factory
+    return not not (fname and tf and tf[fname]) 
+end
 
 local _add_unit_by_factory_name = HuskPlayerInventory.add_unit_by_factory_name
 function HuskPlayerInventory:add_unit_by_factory_name(factory_name, ...)

@@ -1,6 +1,9 @@
-function ManageSpawnedUnits:load(data)
-    if not data then return end
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
 
+rawset(_G, "removed", false) --[string "lib/units/props/managespawnedunits.lua"]:621: cannot assign undeclared global 'removed'
+
+function ManageSpawnedUnits:load(data)
 	if self._link_after_load then
 		self._loaded = true
 
@@ -21,13 +24,13 @@ function ManageSpawnedUnits:load(data)
 		for unit_id, synced_entry in pairs(save_data.local_units or {}) do
             if synced_entry and synced_entry.unit_name then
     			local name_ids = Idstring(synced_entry.unit_name) --fixed by Max from GosUslugi
-                if not DB:has(IDS_UNIT, name_ids) then
-                elseif not PackageManager:has(IDS_UNIT, name_ids) then 
-                elseif synced_entry.joint_table then
-    				self:spawn_and_link_unit(synced_entry.joint_table, unit_id, synced_entry.unit_name)
-    			else
-    				self:spawn_unit(unit_id, synced_entry.align_obj_name, synced_entry.unit_name)
-    			end
+                if DB:has(IDS_UNIT, name_ids) and PackageManager:has(IDS_UNIT, name_ids) then
+                    if synced_entry.joint_table then
+    				    self:spawn_and_link_unit(synced_entry.joint_table, unit_id, synced_entry.unit_name)
+        			else
+        				self:spawn_unit(unit_id, synced_entry.align_obj_name, synced_entry.unit_name)
+        			end
+                end
             end
 		end
 

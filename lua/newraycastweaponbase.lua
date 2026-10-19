@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/units/weapons/newraycastweaponbase.lua"]:2431: attempt to index local 'user_unit' (a nil value)
 local _on_equip = NewRaycastWeaponBase.on_equip
 function NewRaycastWeaponBase:on_equip(user_unit)

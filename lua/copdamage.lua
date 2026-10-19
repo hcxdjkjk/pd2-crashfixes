@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 --[string "lib/units/enemies/cop/copdamage.lua"]:921: attempt to index field 'attacker_unit' (a nil value)
 local _damage_bullet = CopDamage.damage_bullet
 function CopDamage:damage_bullet(attack_data)

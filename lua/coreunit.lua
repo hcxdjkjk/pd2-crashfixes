@@ -1,3 +1,6 @@
+local id = ModPath .. "\t" .. RequiredScript
+if _G[id] then return else _G[id] = true end
+
 core:module("CoreUnit")
 core:import("CoreEngineAccess")
 core:import("CoreCode")
@@ -20,19 +23,4 @@ function safe_spawn_unit(unit_name, ...)
 		return nil
 	end
 	return _safe_spawn_unit(unit_name, ...)
-end
-
-function editor_load_unit(unit_name)
-	local type_ids = IDS_UNIT
-	local name_ids = unit_name:id()
-
-	if not DB:has(type_ids, name_ids) then
-		return
-	end
-
-    if Application:editor() then
-    	CoreEngineAccess._editor_load(type_ids, name_ids)
-    end
-
-	return true
 end

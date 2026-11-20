@@ -1,6 +1,9 @@
 local id = ModPath .. "\t" .. RequiredScript
 if _G[id] then return else _G[id] = true end
 
+local type_name = type_name
+local type = type
+
 local world_mt                          = getmetatable(World)
 local effect_manager_mt                 = getmetatable(World:effect_manager())
 local packagemanager_mt                 = getmetatable(PackageManager)
@@ -38,6 +41,9 @@ world_mt.delete_unit = function (self, unit_name, ...)
     if type(unit_name) ~= "userdata" then
         return nil
     end
+    if type_name(unit_name) ~= "Unit" then
+        return
+    end
     return _world_delete_unit(self, unit_name, ...)
 end
 
@@ -45,7 +51,7 @@ world_mt.delete_light = function (self, unit_name, ...)
     if type(unit_name) ~= "userdata" then
         return
     end
-    if string.lower(type_name(unit_name)) ~= "light" then
+    if type_name(unit_name) ~= "Light" then
         return
     end
     return _world_delete_light(self, unit_name, ...)
@@ -55,7 +61,7 @@ world_mt.delete_camera = function (self, unit_name, ...)
     if type(unit_name) ~= "userdata" then
         return
     end
-    if string.lower(type_name(unit_name)) ~= "camera" then
+    if type_name(unit_name) ~= "Camera" then
         return
     end
     return _world_delete_camera(self, unit_name, ...)

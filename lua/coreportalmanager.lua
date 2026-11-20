@@ -18,8 +18,8 @@ end
 
 local __change_visibility = PortalUnitGroup._change_visibility
 function PortalUnitGroup:_change_visibility(unit, diff)
-	if type(unit) ~= "userdata" or not alive(unit) then 
-		return 
+	if not alive(unit) then
+		return
 	end
 	if type(unit:unit_data()) ~= "table" then 
 		return 

@@ -8,8 +8,6 @@ core:import("CoreTable")
 core:import("CoreUnit")
 core:import("CoreClass")
 
-function BaseElement:print_attribute_error() end
-
 local _run_parsed_func = BaseElement.run_parsed_func
 function BaseElement:run_parsed_func(env, func)
     if type(func) ~= "function" then
@@ -47,15 +45,20 @@ end
 
 --[string "core/lib/managers/coresequencemanager.lua"]:5024: attempt to index local 'obj' (a number value)
 local _set_object = ObjectElement.set_object
-function ObjectElement:set_object(dest_unit, object_list, func_name, value)
-    object_list = object_list or {}
+function ObjectElement:set_object(dest_unit, object_list, ...)
+    if type(object_list) ~= "table" then
+        return
+    end
     local fixed_object_list = {}
-    for k, v in pairs(object_list) do
-        if type(v) == "userdata" then
-            fixed_object_list[k] = v
+    local count = 0
+    for i=1, table.maxn(object_list) do
+        local obj = object_list[i]
+        if type(obj) == "userdata" then
+            count = count + 1
+            fixed_object_list[count] = obj
         end
     end
-    return _set_object(self, dest_unit, fixed_object_list, func_name, value)
+    return _set_object(self, dest_unit, fixed_object_list, ...)
 end
 
 local __serialize_to_script = SequenceManager._serialize_to_script
@@ -65,4 +68,15 @@ function SequenceManager:_serialize_to_script(...)
         return {}
     end
     return result
+end
+
+local _activate_callback = SpawnUnitElement.activate_callback
+function SpawnUnitElement:activate_callback(env)
+    if Network:multiplayer() and Network:is_client() then
+        local name = self:run_parsed_func(env, self._name)
+        if name and not MassUnitManager:can_spawn_unit(Idstring(name)) and not PackageManager:unit_data(name:id()) then
+            return
+        end
+    end
+    return _activate_callback(self, env)
 end

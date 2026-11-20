@@ -5,10 +5,12 @@ if _G[id] then return else _G[id] = true end
 local _init = CopActionHurt.init
 function CopActionHurt:init(action_desc, common_data)
     local unit = common_data.unit
-
-    if not (
-        unit and alive(unit) and (unit.base and unit:base())
-    ) then return end
-
+    if not alive(unit) then
+        return
+    end
+    local base = unit.base and unit:base()
+    if not base then
+        return
+    end
     return _init(self, action_desc, common_data)
 end

@@ -12,11 +12,11 @@ end
 
 --[string "lib/managers/playermanager.lua"]:2104: attempt to index field '_global' (a nil value)
 local _upgrade_value = PlayerManager.upgrade_value
-function PlayerManager:upgrade_value(...)
+function PlayerManager:upgrade_value(category, upgrade, default)
     if not self._global then
-        return 0
+        return default or 0
     end
-    return _upgrade_value(self, ...)
+    return _upgrade_value(self, category, upgrade, default)
 end
 
 local _add_special = PlayerManager.add_special

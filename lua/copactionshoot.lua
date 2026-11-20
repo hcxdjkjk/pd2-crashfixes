@@ -17,7 +17,6 @@ local __get_unit_shoot_pos = CopActionShoot._get_unit_shoot_pos
 function CopActionShoot:_get_unit_shoot_pos(t, pos, dis, w_tweak, ...)
     if type(w_tweak) ~= "table" then
         return
-    end 
+    end
     return __get_unit_shoot_pos(self, t, pos, dis, w_tweak, ...)
 end
-

@@ -10,9 +10,9 @@ function _OcclusionManager:add_occlusion(unit)
     end
 
     local objects = unit:get_objects_by_type(self._model_ids)
-    for k, v in pairs(objects) do
+    for k, v in pairs(objects or {}) do
         if type(v) ~= "userdata" then
-            log("["..tostring(k).."] "..tostring(v).." is not userdata")
+            log(id..string.format(" [%s] %s isn't userdata", tostring(k), tostring(v)))
             return
         end
     end

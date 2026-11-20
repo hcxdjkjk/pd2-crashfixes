@@ -7,48 +7,18 @@ core:import("CoreMath")
 core:import("CoreEditorUtils")
 core:import("CoreEngineAccess")
 
+local is_editor = Application:editor()
+
 --[string "core/lib/utils/dev/editor/coreworlddefinition..."]:910: attempt to index a number value
+local __create_portal = WorldDefinition._create_portal
 function WorldDefinition:_create_portal(data, offset)
-	if not data or type(data) ~= "table" then
+    if type(data) ~= "table" then
         return
     end
-
-	if not Application:editor() and type(data.portals) == "table" then
-        for _, portal in ipairs(data.portals) do
-            local t = {}
-            for _, point in ipairs(portal.points or {}) do
-                table.insert(t, (point.position or Vector3()) + (offset or Vector3()))
-            end
-            local top = portal.top
-            local bottom = portal.bottom
-            if top == 0 and bottom == 0 then
-            	top, bottom = nil
-            end
-            managers.portal:add_portal(t, bottom, top)
-        end
-    end
-
-    local unit_groups = data.unit_groups
-    if type(unit_groups) ~= "table" then
+    if type(data.portals) ~= "table" then
         return
     end
-
-    unit_groups._meta = nil
-
-    for name, group_data in pairs(unit_groups) do
-    	if type(group_data) == "table" then
-            local group = managers.portal:add_unit_group(name)
-            local shapes = group_data.shapes or group_data
-            if type(shapes) == "table" then
-                for _, shape in ipairs(shapes) do
-                    group:add_shape(shape)
-                end
-            end
-            if group_data.ids then
-                group:set_ids(group_data.ids)
-            end
-        end
-    end
+    return __create_portal(self, data, offset)
 end
 
 --[string "core/lib/utils/dev/editor/coreworlddefinition..."]:1301: attempt to index a number value
@@ -64,17 +34,52 @@ function WorldDefinition:_setup_projection_light(unit, data)
 end
 
 local _use_me = WorldDefinition.use_me
-function WorldDefinition:use_me(unit, is_editor)
-	if type(unit) == "userdata" and unit.unit_data and unit.damage then
-		return _use_me(self, unit, is_editor)
-	end
-	return nil
+function WorldDefinition:use_me(unit, ...)
+    if type(unit) ~= "userdata" then
+        return
+    end
+    local unit_data = unit.unit_data and unit:unit_data()
+    if not unit_data then
+        return
+    end
+    if not unit.damage then
+        return
+    end
+	return _use_me(self, unit, ...)
 end
 
 --[string "lib/setups/gamesetup.lua"]:744: attempt to index field 'worlddefinition' (a nil value)
 local __unload_package = WorldDefinition._unload_package
 function WorldDefinition:_unload_package(package)
-	if type(package) == "string" and PackageManager:package_exists(package) then
-		return __unload_package(self, package)
-	end
+    if type(package) ~= "string" then
+        return
+    end
+    if not PackageManager:package_exists(package) then
+        return
+    end
+	return __unload_package(self, package)
+end
+
+--[string "core/lib/utils/dev/editor/coreworlddefinition..."]:884: attempt to index a nil value
+local _make_unit = WorldDefinition.make_unit
+function WorldDefinition:make_unit(data, offset)
+    local name = data.name
+
+    if self._replace_names[name] then
+        name = self._replace_names[name]
+    end
+
+    if not name then
+        return
+    end
+
+    if not is_editor and not Network:is_server() then
+        local unit_data = PackageManager:unit_data(name:id())
+        local network_sync = unit_data and unit_data.network_sync and unit_data:network_sync()
+        if not network_sync then
+            return
+        end
+    end
+
+    return _make_unit(self, data, offset)
 end

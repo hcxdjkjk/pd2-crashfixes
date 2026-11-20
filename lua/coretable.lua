@@ -2,8 +2,8 @@ local id = ModPath .. "\t" .. RequiredScript
 if _G[id] then return else _G[id] = true end
 
 core:module("CoreTable")
-core:import("CoreClass")
-core:import("CoreDebug")
+
+local type = type
 
 local _clone = clone
 function clone(o)

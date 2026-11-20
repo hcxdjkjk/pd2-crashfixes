@@ -17,8 +17,12 @@ end
 
 local _clbk_part_unit_loaded = WeaponFactoryManager.clbk_part_unit_loaded
 function WeaponFactoryManager:clbk_part_unit_loaded(task_data, ...)
-    if type(task_data) ~= "table" then return end
-    if not self._async_load_tasks then return end
+    if type(task_data) ~= "table" then
+        return
+    end
+    if not self._async_load_tasks then
+        return
+    end
 
 	if task_data.spawn and self._async_load_tasks[task_data] then
 		for _, part in pairs(task_data.parts) do
@@ -41,4 +45,20 @@ function WeaponFactoryManager:disassemble(parts, ...)
 	end
 
 	return result
+end
+
+local _get_weapon_id_by_factory_id = WeaponFactoryManager.get_weapon_id_by_factory_id
+function WeaponFactoryManager:get_weapon_id_by_factory_id(factory_id)
+    if not factory_id or not tweak_data.weapon.factory[factory_id] then
+        return
+    end
+    return _get_weapon_id_by_factory_id(self, factory_id)
+end
+
+local _get_factory_id_by_weapon_id = WeaponFactoryManager.get_factory_id_by_weapon_id
+function WeaponFactoryManager:get_factory_id_by_weapon_id(weapon_id)
+    if not weapon_id or not tweak_data.weapon[weapon_id] then
+        return
+    end
+    return _get_factory_id_by_weapon_id(self, weapon_id)
 end

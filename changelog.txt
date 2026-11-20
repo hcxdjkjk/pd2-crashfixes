@@ -1,3 +1,16 @@
+[1.38]
+
+Updated to U249
+
+Fixed:
+
+    [string "lib/managers/groupaimanager.lua"]:73: attempt to call method 'get_persisting_data' (a nil value)
+    [string "lib/units/enemies/cop/copdamage.lua"]:4275: attempt to index a nil value
+    [string "lib/units/equipment/bodybags_bag/bodybagsbagb..."]:166: attempt to index a nil value
+    [string "lib/managers/moneymanager.lua"]:1243: attempt to concatenate local 'mask_id' (a nil value)
+    [string "core/lib/utils/dev/editor/coreworlddefinition..."]:884: attempt to index a nil value
+    [string "lib/units/vehicles/vehicledrivingext.lua"]:633: cannot use undeclared global 'peer'
+
 [1.37]
 
 Fixed:
@@ -113,7 +126,7 @@ Fixed:
 [1.26.7 - 1.27]
 
 Removed:
-    
+
     [string "lib/units/cameras/fpcameraplayerbase.lua"]:286: bad argument #1 to 'abs' (number expected, got nil) (fixed in the base game)
     removed checks for heist difficulty in crime.net / socialhub panels (fixed in the base game)
 
@@ -124,14 +137,14 @@ Removed:
 [1.25 - 1.25.9]
 
 Fixed:
-    
+
     [string "lib/network/matchmaking/networkvoicechatsteam..."]:30: attempt to index global 'Steam' (a nil value)
     Bug with drills upgrade
 
 [1.24 - 1.24.5]
 
 Fixed:
-    
+
     [string "lib/managers/crimenetmanager.lua"]:3012: attempt to perform arithmetic on field 'difficulty_id' (a nil value)
     Long host's names
     [string "lib/managers/social_hub/socialhubpanels.lua"]:389: attempt to perform arithmetic on field 'DIFFICULTY' (a string value)

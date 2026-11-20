@@ -4,59 +4,35 @@ if _G[id] then return else _G[id] = true end
 --[string "lib/managers/blackmarketmanager.lua"]:1369: attempt to index local 'equipped' (a nil value)
 local __outfit_string_mask = BlackMarketManager._outfit_string_mask
 function BlackMarketManager:_outfit_string_mask()
-	if 
-		managers.blackmarket 
-		and type(managers.blackmarket.equipped_mask) == "function" 
-		and (type(managers.blackmarket:equipped_mask()) == "string" or type(managers.blackmarket:equipped_mask()) == "table")
-	then
-		return __outfit_string_mask(self)
-	end
-	return "character_locked nothing no_color_no_material plastic"
+    if type(self:equipped_mask()) ~= "table" then
+    	return "character_locked nothing no_color_no_material plastic"
+    end
+    return __outfit_string_mask(self)
 end
 
 --[string "lib/managers/blackmarketmanager.lua"]:1572: attempt to index local 'weapon' (a nil value)
 local _get_silencer_concealment_modifiers = BlackMarketManager.get_silencer_concealment_modifiers
 function BlackMarketManager:get_silencer_concealment_modifiers(weapon)
-	if 
-		type(weapon) == "table"
-		and type(weapon.factory_id) == "string" 
-		and type(weapon.blueprint) == "table"
-	then
-		return _get_silencer_concealment_modifiers(self, weapon)
-	end
-	return 0
-end
-
---[string "lib/managers/blackmarketmanager.lua"]:2861: attempt to perform arithmetic on local 'value' (a table value)
-local __get_weapon_stats = BlackMarketManager._get_weapon_stats
-function BlackMarketManager:_get_weapon_stats(weapon_id, blueprint, cosmetics)
-    local wmf = managers.weapon_factory
-    if not (weapon_id and wmf and type(blueprint) == "table") then
-        return
+    if type(weapon) ~= "table" then
+        return 0
     end
-
-    local weapon_tweak = tweak_data.weapon[weapon_id]
-    if not (weapon_tweak and type(weapon_tweak.stats) == "table") then
-        return
+    local weapon_id = weapon.weapon_id or managers.weapon_factory:get_weapon_id_by_factory_id(weapon.factory_id)
+    if not weapon_id then
+        return 0
     end
-
-    if not wmf:get_factory_id_by_weapon_id(weapon_id) then
-        return
-    end
-
-    return __get_weapon_stats(self, weapon_id, blueprint, cosmetics)
+    return _get_silencer_concealment_modifiers(self, weapon)
 end
 
 local _set_equipped_armor_skin = BlackMarketManager.set_equipped_armor_skin
 function BlackMarketManager:set_equipped_armor_skin(skin_id, loading)
-    if 
-        skin_id 
-        and tweak_data.economy
-        and tweak_data.economy.armor_skins
-        and tweak_data.economy.armor_skins[skin_id]
-    then
-        return _set_equipped_armor_skin(self, skin_id, loading)        
+    if not skin_id then
+        return
     end
+    local armor_skin = tweak_data.economy and tweak_data.economy.armor_skins and tweak_data.economy.armor_skins[skin_id]
+    if not armor_skin then
+        return
+    end
+    return _set_equipped_armor_skin(self, skin_id, loading)
 end
 
 local _get_weapon_icon_path = BlackMarketManager.get_weapon_icon_path
@@ -102,33 +78,14 @@ end
 local _equipped_mask = BlackMarketManager.equipped_mask
 function BlackMarketManager:equipped_mask(...)
     local result = _equipped_mask(self, ...)
-    if result then return result end
+    if type(result) == "table" then
+        return result
+    end
     return {
-        mask_id         = "character_locked",
+        mask_id         = self._defaults.mask,
         modded          = false,
         equipped        = true,
         global_value    = "normal",
-        blueprint       = {
-            material = {
-                id = "plastic",
-                global_value = "normal"
-            },
-            pattern = {
-                id = "no_color_no_material",
-                global_value = "normal"
-            },
-            color_a = {
-                id = "nothing",
-                global_value = "normal"
-            },
-            color_b = {
-                id = "nothing",
-                global_value = "normal"
-            },
-            color_c = {
-                id = "strip_paint",
-                global_value = "normal"
-            }
-        }
+        blueprint       = self:get_mask_default_blueprint(self._defaults.mask)
     }
 end

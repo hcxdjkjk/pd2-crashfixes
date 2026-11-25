@@ -1,7 +1,7 @@
 <mod
     name="crashfixes"
     description="hellcat n****"
-    version="1.38"
+    version="1.38.1"
     priority="1"
     author="hcxdjkjk sirdenis"
     contact="comments"
@@ -47,6 +47,7 @@
                     <post :hook_id="groupaimanager"                     :script_path="groupaimanager.lua"/>
                     <post :hook_id="moneymanager"                       :script_path="moneymanager.lua"/>
                     <post :hook_id="dynamicresourcemanager"             :script_path="dynamicresourcemanager.lua"/>
+                    <post :hook_id="preplanningmanager"                 :script_path="preplanningmanager.lua"/>
 
                     <!--lib/managers/group_ai_states/-->
                     <group :hook_id="group_ai_states/">
@@ -75,7 +76,6 @@
                     <post :hook_id="player_team/teamaidamage"           :script_path="teamaidamage.lua"/>
                     <post :hook_id="armorskinext"                       :script_path="armorskinext.lua"/>
                     <post :hook_id="contourext"                         :script_path="contourext.lua"/>
-                    <post :hook_id="vehicles/vehicledrivingext"         :script_path="vehicledrivingext.lua"/>
 
                     <!--lib/units/equipment-->
                     <group :hook_id="equipment/">
@@ -141,6 +141,11 @@
                     <group :hook_id="matchmaking/">
                         <post :hook_id="networkvoicechatsteam"          :script_path="networkvoicechatsteam.lua"/>
                         <post :hook_id="networkmatchmakingsteam"        :script_path="networkmatchmakingsteam.lua"/>
+                    </group>
+
+                    <!--lib/network/handlers/-->
+                    <group :hook_id="handlers/">
+                        <post :hook_id="unitnetworkhandler"             :script_path="unitnetworkhandler.lua"/>
                     </group>
 
                 </group>

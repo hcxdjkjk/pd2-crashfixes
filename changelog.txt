@@ -1,3 +1,11 @@
+[1.38.1]
+
+Updated to U249.1
+
+Fixed:
+
+    [string "lib/managers/preplanningmanager.lua"]:1052: attempt to index a nil value
+
 [1.38]
 
 Updated to U249
